@@ -60,6 +60,7 @@ public class AuthenticationActivity extends AppCompatActivity {
                 if (isChecked) {
                     startActivity(new Intent(AuthenticationActivity.this, MainActivity.class));
                     HandmanCheck.setChecked(false);
+                    finish();
                 }
             }
         });
@@ -69,6 +70,7 @@ public class AuthenticationActivity extends AppCompatActivity {
                 if (isChecked) {
                     startActivity(new Intent(AuthenticationActivity.this, LoginActivity.class));
                     clientCheck.setChecked(false);
+                    finish();
                 }
             }
         });
