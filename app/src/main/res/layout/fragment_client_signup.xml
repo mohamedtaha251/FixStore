@@ -57,7 +57,7 @@
         app:layout_constraintTop_toBottomOf="@+id/ed_hname" />
 
     <Button
-        android:id="@+id/btn_hcreate"
+        android:id="@+id/btn_client_submit"
         android:layout_width="115dp"
         android:layout_height="46dp"
         android:layout_marginEnd="8dp"

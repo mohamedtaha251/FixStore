@@ -23,6 +23,9 @@ public class MainActivity extends AppCompatActivity {
         clientFragement = new ClientFragement();
         handymanFragement = new HandymanFragement();
 
+        //get type of user
+        isClient = getIntent().getBooleanExtra("isClient", isClient);
+
         //call fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

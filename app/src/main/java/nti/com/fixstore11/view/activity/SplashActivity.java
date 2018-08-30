@@ -16,66 +16,67 @@ import nti.com.fixstore11.R;
 public class SplashActivity extends AppCompatActivity {
 
 
-    private Handler handler =new Handler();
+    private Handler handler = new Handler();
     ProgressBar bar;
     TextView counttv;
 
-    private int status=0;
+    private int status = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getSupportActionBar().hide();
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_splash);
 
-        bar=findViewById(R.id.pd);
-        counttv=findViewById(R.id.tvcount);
+        bar = findViewById(R.id.pd);
+        counttv = findViewById(R.id.tvcount);
 
 
-        new Thread(new Runnable()
-        {
+        new Thread(new Runnable() {
             @Override
-            public void run()
-            {
-                while (status<100)
-                {
-                    status+=1;
-                    try
-                    {
-                        Thread.sleep(60);
-                    } catch (InterruptedException e)
-                    {
+            public void run() {
+                while (status < 100) {
+                    status += 1;
+                    try {
+                        Thread.sleep(30);
+                    } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    handler.post(new Runnable()
-                    {
+                    handler.post(new Runnable() {
                         @Override
-                        public void run()
-                        {
+                        public void run() {
                             bar.setProgress(status);
-                            counttv.setText(status+" ");
+                            counttv.setText(status + " ");
                         }
                     });
                 }
-                startActivity(new Intent(SplashActivity.this, AuthenticationActivity.class));
+
+                if (isLogged()) {
+                    Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                    intent.putExtra("isClient", isUserClient());
+                    startActivity(intent);
+                } else {
+                    startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                }
+
                 finish();
 
             }
         }).start();
 
-//        splashImage = (ImageView) findViewById(R.id.ev_splash_image);
-//
-//        new Handler().postDelayed(new Runnable() {
-//            public void run() {
-//                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-//                startActivity(intent);
-//                finish();
-//            }
-//        }, SPLASH_TIME);
 
+    }
 
+    private boolean isUserClient() {
+        //check if user client from fire base
+        return true;
+    }
 
+    private boolean isLogged() {
+        //check if user logged from fire base
+        return false;
     }
 }

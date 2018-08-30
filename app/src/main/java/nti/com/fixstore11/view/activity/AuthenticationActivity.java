@@ -21,6 +21,7 @@ public class AuthenticationActivity extends AppCompatActivity {
     EditText phoneT;
     Button nextBTN;
     CheckBox clientCheck, HandmanCheck;
+    Boolean ClientSelection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +59,12 @@ public class AuthenticationActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (isChecked) {
-                    startActivity(new Intent(AuthenticationActivity.this, MainActivity.class));
+                    ClientSelection = false;
+                    Intent intent = new Intent(AuthenticationActivity.this, SignUpActivity.class);
+                    intent.putExtra("SignUpSelection", ClientSelection);
+                    startActivity(intent);
                     HandmanCheck.setChecked(false);
-                    finish();
+
                 }
             }
         });
@@ -68,9 +72,11 @@ public class AuthenticationActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (isChecked) {
-                    startActivity(new Intent(AuthenticationActivity.this, LoginActivity.class));
+                    ClientSelection = true;
+                    Intent intent = new Intent(AuthenticationActivity.this, SignUpActivity.class);
+                    intent.putExtra("SignUpSelection", ClientSelection);
+                    startActivity(intent);
                     clientCheck.setChecked(false);
-                    finish();
                 }
             }
         });
