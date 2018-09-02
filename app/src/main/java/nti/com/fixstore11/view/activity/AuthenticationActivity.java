@@ -36,7 +36,7 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
     ConstraintLayout selection, login;
     EditText phoneT;
     Button nextBTN;
-    String phone = "+2";
+    String phone ;
     CheckBox clientCheck, HandmanCheck;
     Boolean ClientSelection;
 
@@ -102,7 +102,7 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (isChecked) {
-                    phone += mPhoneNumberField.getText().toString().trim();
+                    phone ="+2"+ mPhoneNumberField.getText().toString().trim();
                     ClientSelection = false;
                     Intent intent = new Intent(AuthenticationActivity.this, SignUpActivity.class);
                     intent.putExtra("SignUpSelection", ClientSelection);
@@ -117,7 +117,7 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (isChecked) {
-                    phone += mPhoneNumberField.getText().toString().trim();
+                    phone ="+2"+ mPhoneNumberField.getText().toString().trim();
                     ClientSelection = true;
                     Intent intent = new Intent(AuthenticationActivity.this, SignUpActivity.class);
                     intent.putExtra("SignUpSelection", ClientSelection);
@@ -205,7 +205,7 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
     }
 
     private boolean validatePhoneNumber() {
-        phone += mPhoneNumberField.getText().toString();
+        phone ="+2"+ mPhoneNumberField.getText().toString();
         if (TextUtils.isEmpty(phone)) {
             mPhoneNumberField.setError("Invalid phone number.");
             return false;

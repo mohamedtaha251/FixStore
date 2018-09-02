@@ -54,7 +54,15 @@ public final class FireBase {
         return true;
     }
 
-    public boolean addClient(Client order) {
+    public boolean addClient(Client client) {
+
+        String key = ClientReferene.push().getKey();
+        DatabaseReference userRecord = ClientReferene.child(key);
+        userRecord.child("name").setValue(client.getName());
+        userRecord.child("password").setValue(client.getPassword());
+        userRecord.child("phone").setValue(client.getPhone());
+
+
         return true;
     }
 
