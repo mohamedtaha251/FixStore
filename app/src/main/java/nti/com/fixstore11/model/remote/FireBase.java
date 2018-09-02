@@ -16,15 +16,17 @@ public final class FireBase {
     private FirebaseAuth auth;
     private FirebaseDatabase database;
     private DatabaseReference OrderReferene;
-    private DatabaseReference UserReferene;
+    private DatabaseReference HandymanReferene;
+    private DatabaseReference ClientReferene;
     private FirebaseUser firebaseUser;
 
 
     public FireBase() {
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
-        OrderReferene=database.getReference("order");
-        UserReferene=database.getReference("user");
+        OrderReferene = database.getReference("order");
+        HandymanReferene = database.getReference("handyman");
+        ClientReferene = database.getReference("client");
     }
 
     public String generateKey(DatabaseReference reference) {
@@ -42,7 +44,7 @@ public final class FireBase {
 
 
     public boolean addOrder(Order order) {
-        String key=OrderReferene.push().getKey();
+        String key = OrderReferene.push().getKey();
         DatabaseReference orderRecord = OrderReferene.child(key);
         orderRecord.child("Description").setValue(order.getDescription());
         orderRecord.child("ClientName").setValue(order.getClientName());
@@ -57,6 +59,14 @@ public final class FireBase {
     }
 
     public boolean addHandyMan(HandyMan handyMan) {
+        String key = HandymanReferene.push().getKey();
+        DatabaseReference userRecord = HandymanReferene.child(key);
+        userRecord.child("name").setValue(handyMan.getName());
+        userRecord.child("age").setValue(handyMan.getAge());
+        userRecord.child("password").setValue(handyMan.getPassword());
+        userRecord.child("phone").setValue(handyMan.getPhone());
+
+
         return true;
     }
 

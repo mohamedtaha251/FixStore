@@ -4,17 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fix"
+    android:background="@drawable/back"
     tools:context=".view.activity.AuthenticationActivity">
 
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/background_light"
+        android:layout_height="360dp"
+        android:layout_marginTop="8dp"
+
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.972">
 
         <TextView
             android:id="@+id/textView2"
@@ -26,21 +31,23 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:text="اهلا بك فى فيكس ستور "
+            android:textColor="@color/white"
             android:textSize="33sp"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.506"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
             tools:ignore="NotSibling" />
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/selectLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2"
             app:layout_constraintVertical_bias="0.0">
@@ -120,12 +127,14 @@
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/LoginLayout"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="383dp"
+            android:layout_height="308dp"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2">
 
@@ -137,43 +146,90 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="24dp"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 app:layout_constraintBottom_toTopOf="@+id/nextBTN"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <EditText
-                    android:id="@+id/etPhone"
+                    android:id="@+id/field_phone_number"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:hint="Phone Number"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/white"
+                    android:gravity="right"
+                    android:hint="رقم الهاتف"
                     android:inputType="phone"
-                    app:layout_constraintBottom_toBottomOf="@+id/flages"
-                    app:layout_constraintEnd_toStartOf="@+id/flages"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/flages" />
+                    android:textColorHint="@color/common_google_signin_btn_text_dark_default" />
 
-                <Spinner
-                    android:id="@+id/flages"
+                <EditText
+                    android:id="@+id/field_verification_code"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="16dp"
-                    android:layout_weight="5"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvcount" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:backgroundTint="@color/white"
+                    android:gravity="right"
+                    android:hint="كلمة المرور"
+                    android:inputType="number"
+                    android:textColorHint="@color/common_google_signin_btn_text_dark_default" />
+
+
             </LinearLayout>
+
+            <Button
+                android:id="@+id/button_resend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1.0"
+                android:background="@drawable/buttonstyle"
+                android:text="@string/resend_phone_auth"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/button_start_verification"
+                app:layout_constraintStart_toStartOf="@+id/button_verify_phone"
+                app:layout_constraintTop_toBottomOf="@+id/button_start_verification" />
+
+            <Button
+                android:id="@+id/button_start_verification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1.0"
+                android:background="@drawable/buttonstyle"
+                android:text="@string/start_phone_auth"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/button_verify_phone"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+            <Button
+                android:id="@+id/button_verify_phone"
+                android:layout_width="88dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1.0"
+                android:background="@drawable/buttonstyle"
+                android:text="@string/verify_phone_auth"
+                app:layout_constraintEnd_toStartOf="@+id/button_start_verification"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/button_start_verification" />
 
             <Button
                 android:id="@+id/nextBTN"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:background="@drawable/next"
+
+                android:text="التالى"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
         </android.support.constraint.ConstraintLayout>

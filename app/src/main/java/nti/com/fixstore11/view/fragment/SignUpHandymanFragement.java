@@ -7,31 +7,81 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.Spinner;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import nti.com.fixstore11.R;
+import nti.com.fixstore11.model.entities.HandyMan;
+import nti.com.fixstore11.model.remote.FireBase;
+import nti.com.fixstore11.presenter.presenterImpl.signUpHandymanPresenterImp;
 import nti.com.fixstore11.view.activity.MainActivity;
 import nti.com.fixstore11.view.activity.SplashActivity;
 import nti.com.fixstore11.view.adapter.WorkManShipAdapter;
 
-public class SignUpHandymanFragement extends Fragment {
-
+public class SignUpHandymanFragement extends Fragment implements AdapterView.OnItemSelectedListener {
+    signUpHandymanPresenterImp presenterImp;
     Button btnSubmit;
+    HandyMan handyMan;
+    EditText handyman_name, handyman_age, handyman_email, handyman_password, handyman_position;
+    String pos, hname, hage, phone, hpassword;
+
 
     public SignUpHandymanFragement() {
     }
 
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
         View rootView = inflater.inflate(R.layout.fragment_handyman_signup, container, false);
+
+        //get phone on previous activity
+        phone = getActivity().getIntent().getStringExtra("phone");
+        Toast.makeText(getActivity(), phone, Toast.LENGTH_SHORT).show();
+
+        init(rootView);
+        actions();
+
+        return rootView;
+    }
+
+    private void init(View rootView) {
+        handyman_name = rootView.findViewById(R.id.ed_hname);
+        handyman_age = rootView.findViewById(R.id.ed_hage);
+        handyman_password = rootView.findViewById(R.id.ed_hpassword);
         btnSubmit = rootView.findViewById(R.id.btn_handyman_submit);
 
+
+        // Create an ArrayAdapter using the string array and a default spinner
+        ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter
+                .createFromResource(getActivity(), R.array.positions,
+                        android.R.layout.simple_spinner_item);
+
+        // Specify the layout to use when the list of choices appears
+        staticAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Apply the adapter to the spinner
+        Spinner staticSpinner = (Spinner) rootView.findViewById(R.id.spinner);
+        staticSpinner.setAdapter(staticAdapter);
+        staticSpinner.setOnItemSelectedListener(this);
+    }
+
+    private void actions() {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                presenterImp = new signUpHandymanPresenterImp();
+                presenterImp.addHandyman(getHandyman());
+
 
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 intent.putExtra("isClient", false);
@@ -39,9 +89,31 @@ public class SignUpHandymanFragement extends Fragment {
 
             }
         });
-
-
-        return rootView;
     }
+
+    private HandyMan getHandyman() {
+        HandyMan handyMan = new HandyMan();
+        handyMan.setName(hname);
+        handyMan.setAge(Integer.parseInt(hage));
+        handyMan.setPassword(hpassword);
+        handyMan.setPhone(phone);
+        return handyMan;
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
+
+
+        pos = (String) parent.getItemAtPosition(i);
+        //  Toast.makeText(getActivity(), pos, Toast.LENGTH_LONG).show();
+
+    }
+
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+
 
 }
