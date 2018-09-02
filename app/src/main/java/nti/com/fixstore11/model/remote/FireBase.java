@@ -15,22 +15,20 @@ public final class FireBase {
 
     private FirebaseAuth auth;
     private FirebaseDatabase database;
-    private DatabaseReference referene;
+    private DatabaseReference OrderReferene;
+    private DatabaseReference UserReferene;
     private FirebaseUser firebaseUser;
 
 
     public FireBase() {
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
+        OrderReferene=database.getReference("order");
+        UserReferene=database.getReference("user");
     }
 
-    public boolean addReference(String referenceName) {
-        referene = database.getReference(referenceName);
-        return true;
-    }
-
-    public String generateKey() {
-        return referene.push().getKey();
+    public String generateKey(DatabaseReference reference) {
+        return reference.push().getKey();
     }
 
     public boolean isLogged(String mobile, String password) {
@@ -44,6 +42,13 @@ public final class FireBase {
 
 
     public boolean addOrder(Order order) {
+        String key=OrderReferene.push().getKey();
+        DatabaseReference orderRecord = OrderReferene.child(key);
+        orderRecord.child("Description").setValue(order.getDescription());
+        orderRecord.child("ClientName").setValue(order.getClientName());
+        orderRecord.child("ClientRate").setValue(order.getClientRate());
+        orderRecord.child("Fromdays").setValue(order.getFromdays());
+
         return true;
     }
 

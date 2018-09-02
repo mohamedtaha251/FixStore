@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Layout for weather forecast list item for future dayName (not today) -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="60dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="وصف مفصل للمهمة المطلوبة المهمة"
+        android:layout_gravity="right"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/et_desc_fragment_create_order_first"
+        android:layout_width="match_parent"
+        android:layout_height="203dp"
+        android:text="" />
+
+    <Button
+        android:id="@+id/btn_next_fragment_create_order_first"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:text="التالي" />
+</LinearLayout>

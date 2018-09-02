@@ -1,17 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<!-- Layout for weather forecast list item for future dayName (not today) -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.activity.CreateOrderActivity">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+
+            android:id="@+id/btn_first_frag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="1" />
+
+        <Button
+            android:id="@+id/btn_second_frag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="2" />
+
+        <Button
+            android:id="@+id/btn_third_frag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="3" />
+    </LinearLayout>
 
 
-    <TextView
-        android:id="@+id/tempcreateorder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <FrameLayout
+        android:id="@+id/fragment_container_create_order"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-        android:text="create order" />
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>
