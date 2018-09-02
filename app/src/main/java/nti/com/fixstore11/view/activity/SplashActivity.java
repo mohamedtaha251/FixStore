@@ -18,7 +18,6 @@ public class SplashActivity extends AppCompatActivity {
 
     private Handler handler = new Handler();
     ProgressBar bar;
-    TextView counttv;
 
     private int status = 0;
 
@@ -32,7 +31,6 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         bar = findViewById(R.id.pd);
-        counttv = findViewById(R.id.tvcount);
 
 
         new Thread(new Runnable() {
@@ -41,7 +39,7 @@ public class SplashActivity extends AppCompatActivity {
                 while (status < 100) {
                     status += 1;
                     try {
-                        Thread.sleep(30);
+                        Thread.sleep(10);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -49,7 +47,6 @@ public class SplashActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             bar.setProgress(status);
-                            counttv.setText(status + " ");
                         }
                     });
                 }
