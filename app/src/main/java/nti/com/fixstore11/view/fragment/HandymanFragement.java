@@ -16,14 +16,17 @@ import java.util.ArrayList;
 
 import nti.com.fixstore11.R;
 import nti.com.fixstore11.model.entities.Order;
+import nti.com.fixstore11.presenter.presenterImpl.HandyManMainPresenterImp;
+import nti.com.fixstore11.view.Interfaces.HandymanFragementView;
 import nti.com.fixstore11.view.activity.OrderDetailActivity;
 import nti.com.fixstore11.view.adapter.OrderAdapter;
 
-public class HandymanFragement extends Fragment {
+public class HandymanFragement extends Fragment implements HandymanFragementView {
     private ListView mListView;
     SwipeRefreshLayout pullToRefresh;
+    HandyManMainPresenterImp presenter;
     ArrayList<Order> orders;
-
+    OrderAdapter orderAdapter;
 
     public HandymanFragement() {
     }
@@ -37,11 +40,12 @@ public class HandymanFragement extends Fragment {
 
         mListView = (ListView) rootView.findViewById(R.id.list_view_order);
         pullToRefresh = (SwipeRefreshLayout) rootView.findViewById(R.id.pullToRefresh);
-        orders = new ArrayList<>();
 
-        orders.add(new Order());
-        orders.add(new Order());
-        OrderAdapter orderAdapter = new OrderAdapter(getActivity(), orders, R.layout.list_item_order);
+        orders = new ArrayList<>();
+        presenter = new HandyManMainPresenterImp();
+        presenter.updateOrders(this);
+
+        orderAdapter = new OrderAdapter(getActivity(), orders, R.layout.list_item_order);
         mListView.setAdapter(orderAdapter);
 
         //on click on of item to open Order Detail activity
@@ -71,12 +75,19 @@ public class HandymanFragement extends Fragment {
         return rootView;
     }
 
-    private void getOrdersFromSqlite() {
-
-    }
 
     private void refreshData() {
 
     }
 
+    @Override
+    public void updateOrders(ArrayList<Order> orders) {
+        this.orders = orders;
+        ArrayList<Order> temp = new ArrayList<>();
+        temp.add(new Order());
+
+        //set adapter
+        orderAdapter = new OrderAdapter(getActivity(), this.orders, R.layout.list_item_order);
+        mListView.setAdapter(orderAdapter);
+    }
 }

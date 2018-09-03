@@ -29,7 +29,6 @@ public class OrderAdapter extends CursorAdapter {
     private SparseBooleanArray mSelectedItemsIds;
 
 
-
     private TextView ClientNameTextView;
     private TextView OrderDescTextView;
     private TextView ClientRateTextView;
@@ -37,7 +36,7 @@ public class OrderAdapter extends CursorAdapter {
     private ImageView OrderImageView;
 
     public OrderAdapter(Context context, ArrayList<Order> weatherList, int resource) {
-        super(context,null);
+        super(context, null);
         this.ordersList = weatherList;
         this.mContext = context;
         this.inflater = LayoutInflater.from(context);
@@ -59,7 +58,7 @@ public class OrderAdapter extends CursorAdapter {
 
     @Override
     public long getItemId(int position) {
-        return ordersList.get(position).getId();
+        return Long.parseLong(ordersList.get(position).getId());
     }
 
     @Override
@@ -75,8 +74,8 @@ public class OrderAdapter extends CursorAdapter {
         Order order = ordersList.get(position);
         ClientNameTextView.setText(order.getClientName());
         OrderDescTextView.setText(order.getDescription());
-        ClientRateTextView.setText((int) order.getClientRate() + " rate");
-        OrderFromDayTextView.setText((int) order.getFromdays() + " day");
+        ClientRateTextView.setText(order.getClientRate() + " rate");
+        OrderFromDayTextView.setText(order.getFromdays() + " day");
         return convertView;
     }
 

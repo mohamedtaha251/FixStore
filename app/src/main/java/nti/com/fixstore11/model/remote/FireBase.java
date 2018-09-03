@@ -1,8 +1,9 @@
 package nti.com.fixstore11.model.remote;
 
-import
-        android.content.Context;
+import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -13,13 +14,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import nti.com.fixstore11.model.entities.Client;
 import nti.com.fixstore11.model.entities.HandyMan;
 import nti.com.fixstore11.model.entities.Order;
-import nti.com.fixstore11.view.activity.SignUpActivity;
-import nti.com.fixstore11.view.fragment.ClientFragement;
-import nti.com.fixstore11.view.fragment.SignUpClientFragement;
-
+import nti.com.fixstore11.view.Interfaces.HandymanFragementView;
 
 public final class FireBase {
 
@@ -29,8 +30,12 @@ public final class FireBase {
     private DatabaseReference HandymanReferene;
     private DatabaseReference ClientReferene;
     private FirebaseUser firebaseUser;
-    String s;
-    DataSnapshot dataSnapshot;
+    private ArrayList<Order> orders;
+    private ArrayList<String> ordersString;
+
+    private ArrayList<String> OrderKeys;
+    private HandymanFragementView handymanFragementView;
+
 
     public FireBase() {
         auth = FirebaseAuth.getInstance();
@@ -38,6 +43,11 @@ public final class FireBase {
         OrderReferene = database.getReference("order");
         HandymanReferene = database.getReference("handyman");
         ClientReferene = database.getReference("client");
+        orders = new ArrayList<Order>();
+        OrderKeys = new ArrayList<String>();
+        ordersString = new ArrayList<String>();
+
+
     }
 
     public String generateKey(DatabaseReference reference) {
@@ -54,70 +64,79 @@ public final class FireBase {
     }
 
 
+    public boolean addOrder(Order order) {
+        String key = OrderReferene.push().getKey();
+        DatabaseReference orderRecord = OrderReferene.child(key);
+        orderRecord.child("id").setValue(key);
+        orderRecord.child("Description").setValue(order.getDescription());
+        orderRecord.child("ClientName").setValue(order.getClientName());
+        orderRecord.child("ClientRate").setValue(order.getClientRate());
+        orderRecord.child("Fromdays").setValue(order.getFromdays());
 
-
-        public boolean addOrder (Order order){
-            String key = OrderReferene.push().getKey();
-            DatabaseReference orderRecord = OrderReferene.child(key);
-            orderRecord.child("Description").setValue(order.getDescription());
-            orderRecord.child("ClientName").setValue(order.getClientName());
-            orderRecord.child("ClientRate").setValue(order.getClientRate());
-            orderRecord.child("Fromdays").setValue(order.getFromdays());
-
-            return true;
-        }
-
-        public boolean addClient (Client client){
-
-            String key = ClientReferene.push().getKey();
-            DatabaseReference userRecord = ClientReferene.child(key);
-            userRecord.child("name").setValue(client.getName());
-            userRecord.child("password").setValue(client.getPassword());
-            userRecord.child("phone").setValue(client.getPhone());
-
-
-            return true;
-        }
-
-        public boolean addHandyMan (HandyMan handyMan){
-            String key = HandymanReferene.push().getKey();
-            DatabaseReference userRecord = HandymanReferene.child(key);
-            userRecord.child("name").setValue(handyMan.getName());
-            userRecord.child("age").setValue(handyMan.getAge());
-            userRecord.child("password").setValue(handyMan.getPassword());
-            userRecord.child("phone").setValue(handyMan.getPhone());
-
-
-            return true;
-        }
-
-        public boolean notifyWithNewOrder (Context context){
-            return true;
-        }
-
-        public boolean notifyWithOrderAction (Context context){
-            return true;
-        }
-
-//    public String retrieveclient() {
-//
-//        ClientReferene.child(firebaseUser.getUid()).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                Client client = dataSnapshot.getValue(Client.class);
-//                // Toast.makeText(MainActivity.this, user.getName() + user.getAddress(), Toast.LENGTH_SHORT).show();
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//                for (int i = 0; i < dataSnapshot.getChildrenCount(); i++) {
-//                    Client client = dataSnapshot.getValue(Client.class);
-//                    s = dataSnapshot.child("user1").child("name").getValue(String.class);
-//
-//                }
-//            }
-//        });
-//        return s;
-//    }
+        return true;
     }
+
+    public boolean addClient(Client order) {
+        return true;
+    }
+
+    public void updateOrders(HandymanFragementView View) {
+
+        this.handymanFragementView = View;
+
+        OrderReferene.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ArrayList<Order> orders=new ArrayList<>();
+
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    Order order = new Order();
+
+                    String cn = dataSnapshot.child(ds.getKey()).child("ClientName").getValue(String.class);
+                    order.setClientName(cn);
+                    orders.add(order);
+
+                }
+
+                handymanFragementView.updateOrders(orders);
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+
+
+
+
+
+    public boolean addHandyMan(HandyMan handyMan) {
+        String key = HandymanReferene.push().getKey();
+        DatabaseReference userRecord = HandymanReferene.child(key);
+        userRecord.child("name").setValue(handyMan.getName());
+        userRecord.child("age").setValue(handyMan.getAge());
+        userRecord.child("password").setValue(handyMan.getPassword());
+        userRecord.child("phone").setValue(handyMan.getPhone());
+
+
+        return true;
+    }
+
+    public boolean notifyWithNewOrder(Context context) {
+        return true;
+    }
+
+    public boolean notifyWithOrderAction(Context context) {
+        return true;
+    }
+
+
+}

@@ -47,9 +47,9 @@ public class WorkManShipAdapter extends BaseAdapter {
 
         if (convertView == null) {
             imageView = new ImageView(mContext);
-            imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
+            imageView.setLayoutParams(new GridView.LayoutParams(250, 250));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            imageView.setPadding(8, 8, 8, 8);
+            imageView.setPadding(2, 2, 2, 2);
         } else {
             imageView = (ImageView) convertView;
         }
@@ -59,17 +59,29 @@ public class WorkManShipAdapter extends BaseAdapter {
 
     // Keep all Images in array
     public Integer[] mThumbIds = {
-            R.drawable.electrician_icon,
-            R.drawable.electrician_icon,
-            R.drawable.electrician_icon,
-            R.drawable.electrician_icon,
-            R.drawable.electrician_icon,
-            R.drawable.electrician_icon,
-            R.drawable.electrician_icon,
-            R.drawable.electrician_icon,
-            R.drawable.electrician_icon,
-            R.drawable.electrician_icon,
-            R.drawable.electrician_icon
+            R.drawable.carpenter_icon,
+            R.drawable.painter_icon,
+            R.drawable.plumber_icon,
+            R.drawable.sattilite_icon,
+            R.drawable.carpenter_icon,
+            R.drawable.painter_icon,
+            R.drawable.plumber_icon,
+            R.drawable.sattilite_icon,
+            R.drawable.carpenter_icon,
+            R.drawable.painter_icon,
+            R.drawable.plumber_icon,
+            R.drawable.sattilite_icon,
+            R.drawable.carpenter_icon,
+            R.drawable.painter_icon,
+            R.drawable.plumber_icon,
+            R.drawable.carpenter_icon,
+            R.drawable.sattilite_icon,
+            R.drawable.painter_icon,
+            R.drawable.plumber_icon,
+            R.drawable.carpenter_icon,
+            R.drawable.painter_icon,
+            R.drawable.plumber_icon
+
 
     };
 }

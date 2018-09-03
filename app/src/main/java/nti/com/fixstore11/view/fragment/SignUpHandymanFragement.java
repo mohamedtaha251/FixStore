@@ -59,12 +59,12 @@ public class SignUpHandymanFragement extends Fragment implements AdapterView.OnI
 
         View rootView = inflater.inflate(R.layout.fragment_handyman_signup, container, false);
 
-        //get phone on previous activity
         phone = getActivity().getIntent().getStringExtra("phone");
 
 
         init(rootView);
         actions();
+
 
         return rootView;
     }
@@ -95,7 +95,7 @@ public class SignUpHandymanFragement extends Fragment implements AdapterView.OnI
             public void onClick(View view) {
 
                 presenterImp = new signUpHandymanPresenterImp();
-                presenterImp.addHandyman(getHandyman());
+                presenterImp.addHandyman(new HandyMan());
 
 
                 Intent intent = new Intent(getActivity(), MainActivity.class);

@@ -3,21 +3,21 @@ package nti.com.fixstore11.model.entities;
 import java.io.Serializable;
 
 public class Order implements Serializable{
-    int id;
+    String id;
     String Description;
     String ClientName;
-    int ClientRate;
-    int Fromdays;
+    String ClientRate;
+    String Fromdays;
 
     public Order() {
-        this.id = 1;
+        this.id = "0";
         Description = "fix electric";
         ClientName = "Mohamed taha";
-        ClientRate = 5;
-        Fromdays = 6;
+        ClientRate = "5";
+        Fromdays = "6";
     }
 
-    public Order(int id, String description, String clientName, int clientRate, int fromdays) {
+    public Order(String id, String description, String clientName, String clientRate, String fromdays) {
         this.id = id;
         Description = description;
         ClientName = clientName;
@@ -25,7 +25,7 @@ public class Order implements Serializable{
         Fromdays = fromdays;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -45,23 +45,23 @@ public class Order implements Serializable{
         ClientName = clientName;
     }
 
-    public int getClientRate() {
+    public String getClientRate() {
         return ClientRate;
     }
 
-    public void setClientRate(int clientRate) {
+    public void setClientRate(String clientRate) {
         ClientRate = clientRate;
     }
 
-    public int getFromdays() {
+    public String getFromdays() {
         return Fromdays;
     }
 
-    public void setFromdays(int fromdays) {
+    public void setFromdays(String fromdays) {
         Fromdays = fromdays;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 }
