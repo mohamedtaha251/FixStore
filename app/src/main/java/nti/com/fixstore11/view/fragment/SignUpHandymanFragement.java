@@ -2,6 +2,7 @@ package nti.com.fixstore11.view.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,8 +17,11 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import nti.com.fixstore11.R;
 import nti.com.fixstore11.model.entities.HandyMan;
@@ -34,6 +38,17 @@ public class SignUpHandymanFragement extends Fragment implements AdapterView.OnI
     EditText handyman_name, handyman_age, handyman_email, handyman_password, handyman_position;
     String pos, hname, hage, phone, hpassword;
 
+    private FirebaseAuth auth;
+    private FirebaseDatabase database;
+    private DatabaseReference OrderReferene;
+    private DatabaseReference HandymanReferene;
+    private DatabaseReference ClientReferene;
+    private FirebaseUser firebaseUser;
+   DatabaseReference referenc;
+//    FirebaseAuth auth;
+//    FirebaseDatabase database;
+//    DatabaseReference referenc;
+//    FirebaseUser firebaseUser;
 
     public SignUpHandymanFragement() {
     }
@@ -41,11 +56,12 @@ public class SignUpHandymanFragement extends Fragment implements AdapterView.OnI
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View rootView = inflater.inflate(R.layout.fragment_handyman_signup, container, false);
 
         //get phone on previous activity
         phone = getActivity().getIntent().getStringExtra("phone");
-        Toast.makeText(getActivity(), phone, Toast.LENGTH_SHORT).show();
+
 
         init(rootView);
         actions();
@@ -58,7 +74,6 @@ public class SignUpHandymanFragement extends Fragment implements AdapterView.OnI
         handyman_age = rootView.findViewById(R.id.ed_hage);
         handyman_password = rootView.findViewById(R.id.ed_hpassword);
         btnSubmit = rootView.findViewById(R.id.btn_handyman_submit);
-
 
         // Create an ArrayAdapter using the string array and a default spinner
         ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter
@@ -86,6 +101,11 @@ public class SignUpHandymanFragement extends Fragment implements AdapterView.OnI
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 intent.putExtra("isClient", false);
                 startActivity(intent);
+//
+//                if (getArguments() != null) {
+//                    phone = getArguments().getString("phone2");
+//                    Toast.makeText(getActivity(),phone,Toast.LENGTH_SHORT).show();
+//                }
 
             }
         });
@@ -93,11 +113,74 @@ public class SignUpHandymanFragement extends Fragment implements AdapterView.OnI
 
     private HandyMan getHandyman() {
         HandyMan handyMan = new HandyMan();
-        handyMan.setName(hname);
-        handyMan.setAge(Integer.parseInt(hage));
+        handyMan.setName(handyman_name.getText().toString());
+        handyMan.setAge(Integer.parseInt(handyman_age.getText().toString()));
         handyMan.setPassword(hpassword);
         handyMan.setPhone(phone);
+
+
+//        database = FirebaseDatabase.getInstance();
+//
+//        HandymanReferene = database.getReference("handyman");
+//        referenc = database.getReference("handyman");
+//        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+//       // DatabaseReference userref = referenc.child("handyman");
+//
+//        referenc.child(firebaseUser.getUid()).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+////                HandyMan user = dataSnapshot.getValue(HandyMan.class);
+////                Toast.makeText(getActivity(), user.getName() + user.getName(), Toast.LENGTH_SHORT).show();
+////
+//                for (int i=0;i<dataSnapshot.getChildrenCount();i++)
+//                {
+//                    HandyMan user=dataSnapshot.getValue(HandyMan.class);
+//                    String s=dataSnapshot.child("handyman").child("name").getValue(String.class);
+//                    Toast.makeText(getActivity(), user.getName(), Toast.LENGTH_SHORT).show();
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
+
+
+
+
+
+
+
+
+
+
+
+//
+//        referenc.child(firebaseUser.getUid()).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                HandyMan user = dataSnapshot.getValue(HandyMan.class);
+//                Toast.makeText(getActivity(), user.getName() + user.getName(), Toast.LENGTH_SHORT).show();
+//
+//                for (int i=0;i<dataSnapshot.getChildrenCount();i++)
+//                {
+//                    HandyMan handyMan=dataSnapshot.getValue(HandyMan.class);
+//                    String s=dataSnapshot.child("handyman").child("name").getValue(String.class);
+//                    Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
+
         return handyMan;
+
     }
 
     @Override

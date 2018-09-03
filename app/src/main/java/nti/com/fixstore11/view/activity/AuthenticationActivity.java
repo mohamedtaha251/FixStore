@@ -31,18 +31,20 @@ import java.nio.file.Files;
 import java.util.concurrent.TimeUnit;
 
 import nti.com.fixstore11.R;
+import nti.com.fixstore11.view.fragment.SignUpClientFragement;
+import nti.com.fixstore11.view.fragment.SignUpHandymanFragement;
 
 public class AuthenticationActivity extends AppCompatActivity implements View.OnClickListener {
     ConstraintLayout selection, login;
     EditText phoneT;
     Button nextBTN;
-    String phone ;
+    String phone;
     CheckBox clientCheck, HandmanCheck;
     Boolean ClientSelection;
 
     EditText mPhoneNumberField, mVerificationField;
     Button mStartButton, mVerifyButton, mResendButton;
-
+    Bundle bundle = new Bundle();
     private FirebaseAuth mAuth;
     private PhoneAuthProvider.ForceResendingToken mResendToken;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
@@ -84,6 +86,10 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
         mVerifyButton.setOnClickListener(this);
         mResendButton.setOnClickListener(this);
 
+        mVerifyButton.setVisibility(View.INVISIBLE);
+        mResendButton.setVisibility(View.INVISIBLE);
+        nextBTN.setVisibility(View.INVISIBLE);
+
         mAuth = FirebaseAuth.getInstance();
         mAuth.signOut();
     }
@@ -102,13 +108,21 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (isChecked) {
-                    phone ="+2"+ mPhoneNumberField.getText().toString().trim();
+                    phone = "+2" + mPhoneNumberField.getText().toString().trim();
                     ClientSelection = false;
                     Intent intent = new Intent(AuthenticationActivity.this, SignUpActivity.class);
                     intent.putExtra("SignUpSelection", ClientSelection);
-                    intent.putExtra("phone", phone);
+                   intent.putExtra("phone", phone);
                     startActivity(intent);
                     HandmanCheck.setChecked(false);
+
+
+
+              //      bundle.putString("phone", phone);
+// set MyFragment Arguments
+             //       SignUpClientFragement myObj = new SignUpClientFragement();
+             //       myObj.setArguments(bundle);
+
 
                 }
             }
@@ -117,7 +131,7 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (isChecked) {
-                    phone ="+2"+ mPhoneNumberField.getText().toString().trim();
+                    phone = "+2" + mPhoneNumberField.getText().toString().trim();
                     ClientSelection = true;
                     Intent intent = new Intent(AuthenticationActivity.this, SignUpActivity.class);
                     intent.putExtra("SignUpSelection", ClientSelection);
@@ -125,6 +139,14 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
 
                     startActivity(intent);
                     clientCheck.setChecked(false);
+//
+//
+//                    bundle.putString("phone", phone);
+//// set MyFragment Arguments
+//                    SignUpHandymanFragement myObj2 = new SignUpHandymanFragement();
+//                    myObj2.setArguments(bundle);
+//
+
                 }
             }
         });
@@ -152,7 +174,7 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
             public void onCodeSent(String verificationId,
                                    PhoneAuthProvider.ForceResendingToken token) {
                 Log.d(TAG, "onCodeSent:" + verificationId);
-                Toast.makeText(getBaseContext(), "failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "سوف تصلك رساله الكود التعريفى الان", Toast.LENGTH_SHORT).show();
                 mVerificationId = verificationId;
                 mResendToken = token;
             }
@@ -205,7 +227,7 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
     }
 
     private boolean validatePhoneNumber() {
-        phone ="+2"+ mPhoneNumberField.getText().toString();
+        phone = "+2" + mPhoneNumberField.getText().toString();
         if (TextUtils.isEmpty(phone)) {
             mPhoneNumberField.setError("Invalid phone number.");
             return false;
@@ -230,7 +252,11 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
                 if (!validatePhoneNumber()) {
                     return;
                 }
-                startPhoneNumberVerification(mPhoneNumberField.getText().toString());
+                mVerifyButton.setVisibility(View.VISIBLE);
+                mResendButton.setVisibility(View.VISIBLE);
+                mStartButton.setVisibility(View.INVISIBLE);
+//                nextBTN.setVisibility(View.VISIBLE);
+                startPhoneNumberVerification("+2" + mPhoneNumberField.getText().toString());
                 break;
             case R.id.button_verify_phone:
                 String code = mVerificationField.getText().toString();
@@ -240,6 +266,7 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
                 }
 
                 verifyPhoneNumberWithCode(mVerificationId, code);
+                nextBTN.setVisibility(View.VISIBLE);
                 break;
             case R.id.button_resend:
                 resendVerificationCode(mPhoneNumberField.getText().toString(), mResendToken);

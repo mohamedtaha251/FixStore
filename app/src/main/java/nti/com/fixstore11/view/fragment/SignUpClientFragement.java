@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import nti.com.fixstore11.R;
 import nti.com.fixstore11.model.entities.Client;
@@ -17,7 +18,6 @@ import nti.com.fixstore11.presenter.presenterImpl.signUpClientPresenterImp;
 import nti.com.fixstore11.presenter.presenterImpl.signUpHandymanPresenterImp;
 import nti.com.fixstore11.view.activity.MainActivity;
 import nti.com.fixstore11.view.adapter.WorkManShipAdapter;
-
 public class SignUpClientFragement extends Fragment {
 
     Button btnSubmit;
@@ -47,6 +47,12 @@ public class SignUpClientFragement extends Fragment {
         btnSubmit = rootView.findViewById(R.id.btn_client_submit);
         nameET = rootView.findViewById(R.id.ed_hname);
         passwordEt = rootView.findViewById(R.id.ed_hpassword);
+ //
+//        if (getArguments() != null) {
+//            phone = getArguments().getString("phone");
+//            Toast.makeText(getActivity(),phone+"client phone",Toast.LENGTH_SHORT).show();
+//        }
+
 
     }
 
@@ -61,6 +67,7 @@ public class SignUpClientFragement extends Fragment {
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 intent.putExtra("isClient", true);
                 startActivity(intent);
+
             }
         });
     }
