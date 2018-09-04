@@ -5,22 +5,22 @@ import java.io.Serializable;
 public class Order implements Serializable{
     String id;
     String Description;
-    String ClientName;
+    Client client;
     String ClientRate;
     String Fromdays;
 
     public Order() {
         this.id = "0";
         Description = "fix electric";
-        ClientName = "Mohamed taha";
+        client.setName("Mohamed taha");
         ClientRate = "5";
         Fromdays = "6";
     }
 
-    public Order(String id, String description, String clientName, String clientRate, String fromdays) {
+    public Order(String id, String description, Client clientName, String clientRate, String fromdays) {
         this.id = id;
         Description = description;
-        ClientName = clientName;
+        client = clientName;
         ClientRate = clientRate;
         Fromdays = fromdays;
     }
@@ -37,12 +37,12 @@ public class Order implements Serializable{
         Description = description;
     }
 
-    public String getClientName() {
-        return ClientName;
+    public Client getClient() {
+        return client;
     }
 
-    public void setClientName(String clientName) {
-        ClientName = clientName;
+    public void setClient(Client clientName) {
+        client = clientName;
     }
 
     public String getClientRate() {

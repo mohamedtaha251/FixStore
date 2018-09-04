@@ -6,32 +6,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="60dp"
+    android:background="@drawable/backgroundd"
     android:orientation="vertical">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
-        android:text="سعر الخدمة" />
+        android:layout_marginRight="30dp"
+        android:text="سعر الخدمة"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
 
     <EditText
         android:id="@+id/et_order_price_fragment_create_order_third"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="" />
-
-    <Button
-        android:id="@+id/btn_add_image_fragment_create_order_third"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:text="اضافة صورة" />
+        android:text=""
+        android:textColor="@color/white" />
 
     <Button
         android:id="@+id/btn_send_order"
-        android:layout_width="wrap_content"
+        android:layout_width="142dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="ارسال الطلب" />
+        android:background="@drawable/login_style"
+        android:text="ارسال الطلب"
+        android:textColor="@color/colorAccent"
+        android:textSize="20sp" />
 
 </LinearLayout>

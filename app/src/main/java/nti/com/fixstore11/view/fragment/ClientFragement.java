@@ -12,7 +12,6 @@ import android.widget.GridView;
 import nti.com.fixstore11.R;
 import nti.com.fixstore11.utils.HandyManUtils;
 import nti.com.fixstore11.view.activity.CreateOrderActivity;
-import nti.com.fixstore11.view.activity.OrderDetailActivity;
 import nti.com.fixstore11.view.adapter.WorkManShipAdapter;
 
 public class ClientFragement extends Fragment {
