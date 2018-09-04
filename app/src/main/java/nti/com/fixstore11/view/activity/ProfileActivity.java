@@ -1,7 +1,11 @@
 package nti.com.fixstore11.view.activity;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -18,8 +22,10 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RatingBar;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -40,7 +46,9 @@ public class ProfileActivity extends  AppCompatActivity {
     ArrayList<Comment> comments = new ArrayList<>();
     Comment comment;
     public static final int PICK_IMAGE = 1;
-
+    static ListView lv1;
+    static SQLiteDatabase db;
+    static Cursor c1;
     private SQLiteHelper sqLiteOpen;
 
     @Override
@@ -53,6 +61,8 @@ public class ProfileActivity extends  AppCompatActivity {
 
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+
+                insertImg(1,bitmap);
 
                 sqLiteOpen.insert(uri.getPath());
                 ImageView imageView = findViewById(R.id.profile_image);
@@ -134,5 +144,36 @@ public class ProfileActivity extends  AppCompatActivity {
         comments.add(comment);
 
         return comments;
+    }
+
+
+    public void insertImg(int id , Bitmap img ) {
+
+
+        byte[] data = getBitmapAsByteArray(img);
+        db.execSQL("INSERT INTO USERIMG VALUES('" + id + "," + img + "');");
+    }
+
+    public static byte[] getBitmapAsByteArray(Bitmap bitmap) {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
+        return outputStream.toByteArray();
+    }
+
+    public Bitmap getImage(int i){
+
+        String qu = "select img  from table where feedid=" + i ;
+        Cursor cur = db.rawQuery(qu, null);
+
+        if (cur.moveToFirst()){
+            byte[] imgByte = cur.getBlob(0);
+            cur.close();
+            return BitmapFactory.decodeByteArray(imgByte, 0, imgByte.length);
+        }
+        if (cur != null && !cur.isClosed()) {
+            cur.close();
+        }
+
+        return null ;
     }
 }
