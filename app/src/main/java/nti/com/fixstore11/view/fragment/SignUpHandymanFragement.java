@@ -1,5 +1,6 @@
 package nti.com.fixstore11.view.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -27,28 +28,17 @@ import nti.com.fixstore11.R;
 import nti.com.fixstore11.model.entities.HandyMan;
 import nti.com.fixstore11.model.remote.FireBase;
 import nti.com.fixstore11.presenter.presenterImpl.signUpHandymanPresenterImp;
+import nti.com.fixstore11.utils.HandyManUtils;
 import nti.com.fixstore11.view.activity.MainActivity;
 import nti.com.fixstore11.view.activity.SplashActivity;
 import nti.com.fixstore11.view.adapter.WorkManShipAdapter;
 
-public class SignUpHandymanFragement extends Fragment implements AdapterView.OnItemSelectedListener {
+public class SignUpHandymanFragement extends Fragment {
     signUpHandymanPresenterImp presenterImp;
     Button btnSubmit;
-    HandyMan handyMan;
-    EditText handyman_name, handyman_age, handyman_email, handyman_password, handyman_position;
-    String pos, hname, hage, phone, hpassword;
+    Spinner spinnerJobName;
+    EditText handyman_name, handyman_age, handyman_password;
 
-    private FirebaseAuth auth;
-    private FirebaseDatabase database;
-    private DatabaseReference OrderReferene;
-    private DatabaseReference HandymanReferene;
-    private DatabaseReference ClientReferene;
-    private FirebaseUser firebaseUser;
-   DatabaseReference referenc;
-//    FirebaseAuth auth;
-//    FirebaseDatabase database;
-//    DatabaseReference referenc;
-//    FirebaseUser firebaseUser;
 
     public SignUpHandymanFragement() {
     }
@@ -58,8 +48,6 @@ public class SignUpHandymanFragement extends Fragment implements AdapterView.OnI
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_handyman_signup, container, false);
-
-        phone = getActivity().getIntent().getStringExtra("phone");
 
 
         init(rootView);
@@ -74,19 +62,14 @@ public class SignUpHandymanFragement extends Fragment implements AdapterView.OnI
         handyman_age = rootView.findViewById(R.id.ed_hage);
         handyman_password = rootView.findViewById(R.id.ed_hpassword);
         btnSubmit = rootView.findViewById(R.id.btn_handyman_submit);
+        spinnerJobName = rootView.findViewById(R.id.spinner);
 
-        // Create an ArrayAdapter using the string array and a default spinner
-        ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter
-                .createFromResource(getActivity(), R.array.positions,
-                        android.R.layout.simple_spinner_item);
+        //set adapter to spinner
+        @SuppressLint("ResourceType")
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, HandyManUtils.jobs);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerJobName.setAdapter(adapter);
 
-        // Specify the layout to use when the list of choices appears
-        staticAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // Apply the adapter to the spinner
-        Spinner staticSpinner = (Spinner) rootView.findViewById(R.id.spinner);
-        staticSpinner.setAdapter(staticAdapter);
-        staticSpinner.setOnItemSelectedListener(this);
     }
 
     private void actions() {
@@ -94,18 +77,19 @@ public class SignUpHandymanFragement extends Fragment implements AdapterView.OnI
             @Override
             public void onClick(View view) {
 
+                //fill new objects with values from UI
+                HandyMan newHandyMan = getHandyman();
+
+                //add handyman in database
                 presenterImp = new signUpHandymanPresenterImp();
-                presenterImp.addHandyman(new HandyMan());
+                presenterImp.addHandyman(newHandyMan);
 
 
+                //pass handyman to mainActivity and start it
                 Intent intent = new Intent(getActivity(), MainActivity.class);
-                intent.putExtra("isClient", false);
+                intent.putExtra("User", newHandyMan);
                 startActivity(intent);
-//
-//                if (getArguments() != null) {
-//                    phone = getArguments().getString("phone2");
-//                    Toast.makeText(getActivity(),phone,Toast.LENGTH_SHORT).show();
-//                }
+
 
             }
         });
@@ -115,88 +99,16 @@ public class SignUpHandymanFragement extends Fragment implements AdapterView.OnI
         HandyMan handyMan = new HandyMan();
         handyMan.setName(handyman_name.getText().toString());
         handyMan.setAge(Integer.parseInt(handyman_age.getText().toString()));
-        handyMan.setPassword(hpassword);
-        handyMan.setPhone(phone);
+        handyMan.setPassword(handyman_password.getText().toString());
 
+        //get job index from spinner then get corresponding job name from class HandyManUtils
+        handyMan.setJobName(HandyManUtils.jobs[spinnerJobName.getSelectedItemPosition()]);
 
-//        database = FirebaseDatabase.getInstance();
-//
-//        HandymanReferene = database.getReference("handyman");
-//        referenc = database.getReference("handyman");
-//        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-//       // DatabaseReference userref = referenc.child("handyman");
-//
-//        referenc.child(firebaseUser.getUid()).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-////                HandyMan user = dataSnapshot.getValue(HandyMan.class);
-////                Toast.makeText(getActivity(), user.getName() + user.getName(), Toast.LENGTH_SHORT).show();
-////
-//                for (int i=0;i<dataSnapshot.getChildrenCount();i++)
-//                {
-//                    HandyMan user=dataSnapshot.getValue(HandyMan.class);
-//                    String s=dataSnapshot.child("handyman").child("name").getValue(String.class);
-//                    Toast.makeText(getActivity(), user.getName(), Toast.LENGTH_SHORT).show();
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-
-
-
-
-
-
-
-
-
-
-
-//
-//        referenc.child(firebaseUser.getUid()).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                HandyMan user = dataSnapshot.getValue(HandyMan.class);
-//                Toast.makeText(getActivity(), user.getName() + user.getName(), Toast.LENGTH_SHORT).show();
-//
-//                for (int i=0;i<dataSnapshot.getChildrenCount();i++)
-//                {
-//                    HandyMan handyMan=dataSnapshot.getValue(HandyMan.class);
-//                    String s=dataSnapshot.child("handyman").child("name").getValue(String.class);
-//                    Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
+        //get phone from previuous activity
+        handyMan.setPhone(getActivity().getIntent().getStringExtra("phone"));
 
         return handyMan;
 
     }
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
-
-
-        pos = (String) parent.getItemAtPosition(i);
-        //  Toast.makeText(getActivity(), pos, Toast.LENGTH_LONG).show();
-
-    }
-
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
-    }
-
 
 }

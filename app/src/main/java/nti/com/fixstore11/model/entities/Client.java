@@ -1,10 +1,14 @@
 package nti.com.fixstore11.model.entities;
 
-public class Client {
+import java.io.Serializable;
 
-    private String name;
-    private String password;
-    private  String phone;
+public class Client extends User implements Serializable {
+
+
+    public Client() {
+        super();
+
+    }
 
     public String getName() {
         return name;

@@ -14,10 +14,12 @@ import android.widget.Toast;
 
 import nti.com.fixstore11.R;
 import nti.com.fixstore11.model.entities.Client;
+import nti.com.fixstore11.model.entities.User;
 import nti.com.fixstore11.presenter.presenterImpl.signUpClientPresenterImp;
 import nti.com.fixstore11.presenter.presenterImpl.signUpHandymanPresenterImp;
 import nti.com.fixstore11.view.activity.MainActivity;
 import nti.com.fixstore11.view.adapter.WorkManShipAdapter;
+
 public class SignUpClientFragement extends Fragment {
 
     Button btnSubmit;
@@ -47,7 +49,7 @@ public class SignUpClientFragement extends Fragment {
         btnSubmit = rootView.findViewById(R.id.btn_client_submit);
         nameET = rootView.findViewById(R.id.ed_hname);
         passwordEt = rootView.findViewById(R.id.ed_hpassword);
- //
+        //
 //        if (getArguments() != null) {
 //            phone = getArguments().getString("phone");
 //            Toast.makeText(getActivity(),phone+"client phone",Toast.LENGTH_SHORT).show();
@@ -60,12 +62,16 @@ public class SignUpClientFragement extends Fragment {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //fill new objects with values from UI
+                Client newClient = getClient();
 
+                //add newClient in database
                 presenterImp = new signUpClientPresenterImp();
-                presenterImp.addClient(getClient());
+                presenterImp.addClient(newClient);
 
+                //pass newClient to main activity and start it
                 Intent intent = new Intent(getActivity(), MainActivity.class);
-                intent.putExtra("isClient", true);
+                intent.putExtra("User", newClient);
                 startActivity(intent);
 
             }

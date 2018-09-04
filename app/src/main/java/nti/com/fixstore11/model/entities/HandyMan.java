@@ -1,15 +1,17 @@
 package nti.com.fixstore11.model.entities;
 
-public class HandyMan {
+import java.io.Serializable;
 
-    private String id;
-    private String name;
-    private String phone;
-    private String password;
+public class HandyMan extends User implements Serializable {
+
     private String jobName;
     private int Age;
 
     public HandyMan() {
+        super();
+        jobName="default";
+        Age=0;
+
     }
 
     public HandyMan(String name, String phone, int age) {
