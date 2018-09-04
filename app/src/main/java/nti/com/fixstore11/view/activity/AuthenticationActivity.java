@@ -165,9 +165,9 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
             public void onVerificationFailed(FirebaseException e) {
                 Log.w(TAG, "onVerificationFailed", e);
                 if (e instanceof FirebaseAuthInvalidCredentialsException) {
-                    mPhoneNumberField.setError("Invalid phone number.");
+                    mPhoneNumberField.setError("حدث مشكلة يرجى المحاولة مرة اخرى");
                 } else if (e instanceof FirebaseTooManyRequestsException) {
-                    mPhoneNumberField.setError("Invalid phone number.");
+                    mPhoneNumberField.setError("حدث مشكلة يرجى المحاولة مرة اخرى");
                 }
             }
 
@@ -192,7 +192,7 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
                         } else {
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                                mVerificationField.setError("Invalid code.");
+                                mVerificationField.setError("الكود التعريفى غير صحيح");
                             }
                         }
                     }
@@ -228,7 +228,7 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
     private boolean validatePhoneNumber() {
         phone = "+2" + mPhoneNumberField.getText().toString();
         if (TextUtils.isEmpty(phone)) {
-            mPhoneNumberField.setError("Invalid phone number.");
+            mPhoneNumberField.setError("رقم الهاتف غير صحيح");
             return false;
         }
         return true;
@@ -260,7 +260,7 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
             case R.id.button_verify_phone:
                 String code = mVerificationField.getText().toString();
                 if (TextUtils.isEmpty(code)) {
-                    mVerificationField.setError("Cannot be empty.");
+                    mVerificationField.setError("يجب كتابة الكود التعريفى");
                     return;
                 }
 
