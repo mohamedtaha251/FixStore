@@ -8,5 +8,5 @@ import nti.com.fixstore11.model.entities.Order;
  */
 
 public interface CreateOrderPresenter {
-    boolean saveOrder(Order order);
+    boolean saveOrder(Order order,String job);
 }

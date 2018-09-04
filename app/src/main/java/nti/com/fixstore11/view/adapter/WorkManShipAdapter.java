@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 import nti.com.fixstore11.R;
 import nti.com.fixstore11.model.entities.Order;
+import nti.com.fixstore11.utils.HandyManUtils;
 
 public class WorkManShipAdapter extends BaseAdapter {
     private Context mContext;
@@ -30,7 +31,7 @@ public class WorkManShipAdapter extends BaseAdapter {
     }
 
     public int getCount() {
-        return mThumbIds.length;
+        return HandyManUtils.mThumbIds.length;
     }
 
     public Object getItem(int position) {
@@ -53,37 +54,13 @@ public class WorkManShipAdapter extends BaseAdapter {
         } else {
             imageView = (ImageView) convertView;
         }
-        imageView.setImageResource(mThumbIds[position]);
+        imageView.setImageResource(HandyManUtils.mThumbIds[position]);
         return imageView;
     }
 
-    // Keep all Images in array
-    public Integer[] mThumbIds = {
-            R.drawable.carpenter_icon,
-            R.drawable.painter_icon,
-            R.drawable.plumber_icon,
-            R.drawable.sattilite_icon,
-            R.drawable.carpenter_icon,
-            R.drawable.painter_icon,
-            R.drawable.plumber_icon,
-            R.drawable.sattilite_icon,
-            R.drawable.carpenter_icon,
-            R.drawable.painter_icon,
-            R.drawable.plumber_icon,
-            R.drawable.sattilite_icon,
-            R.drawable.carpenter_icon,
-            R.drawable.painter_icon,
-            R.drawable.plumber_icon,
-            R.drawable.carpenter_icon,
-            R.drawable.sattilite_icon,
-            R.drawable.painter_icon,
-            R.drawable.plumber_icon,
-            R.drawable.carpenter_icon,
-            R.drawable.painter_icon,
-            R.drawable.plumber_icon
 
 
-    };
+
 }
 
 

@@ -64,9 +64,9 @@ public final class FireBase {
     }
 
 
-    public boolean addOrder(Order order) {
+    public boolean addOrder(Order order,String job) {
         String key = OrderReferene.push().getKey();
-        DatabaseReference orderRecord = OrderReferene.child(key);
+        DatabaseReference orderRecord = OrderReferene.child(job).child(key);
         orderRecord.child("id").setValue(key);
         orderRecord.child("Description").setValue(order.getDescription());
         orderRecord.child("ClientName").setValue(order.getClientName());

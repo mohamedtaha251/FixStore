@@ -9,9 +9,9 @@ public class CreateOrderPresenterImp implements CreateOrderPresenter {
 
 
     @Override
-    public boolean saveOrder(Order order) {
+    public boolean saveOrder(Order order,String job) {
         FireBase fireBase = new FireBase();
-        fireBase.addOrder(order);
+        fireBase.addOrder(order,job);
         return true;
     }
 }

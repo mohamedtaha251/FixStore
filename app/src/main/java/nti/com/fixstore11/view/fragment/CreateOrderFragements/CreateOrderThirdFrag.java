@@ -36,8 +36,8 @@ public class CreateOrderThirdFrag extends Fragment {
         btnSendOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Order order = new Order();
-                presenterImp.saveOrder(new Order());
+                String job=getActivity().getIntent().getStringExtra("HandyManJob");
+                presenterImp.saveOrder(new Order(),job);
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);
             }

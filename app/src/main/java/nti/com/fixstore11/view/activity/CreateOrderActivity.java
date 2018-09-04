@@ -43,6 +43,8 @@ public class CreateOrderActivity extends AppCompatActivity {
         init();
         actions();
 
+
+
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container_create_order, FirstFrag);

@@ -6,6 +6,7 @@ public class HandyMan {
     private String name;
     private String phone;
     private String password;
+    private String jobName;
     private int Age;
 
     public HandyMan() {
@@ -15,6 +16,14 @@ public class HandyMan {
         this.name = name;
         this.phone = phone;
         Age = age;
+    }
+
+    public String getJobName() {
+        return jobName;
+    }
+
+    public void setJobName(String jobName) {
+        this.jobName = jobName;
     }
 
     public String getId() {
@@ -56,4 +65,7 @@ public class HandyMan {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
+
 }

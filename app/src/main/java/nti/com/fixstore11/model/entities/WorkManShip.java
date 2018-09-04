@@ -37,4 +37,6 @@ public class WorkManShip implements Serializable {
     public void setImageIcon(String imageIcon) {
         ImageIcon = imageIcon;
     }
+
+
 }
