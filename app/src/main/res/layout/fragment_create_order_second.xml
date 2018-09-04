@@ -17,13 +17,19 @@
         android:text="تحديد الموقع"
         android:textColor="@color/white"
         android:textSize="20sp" />
-
-    <EditText
-        android:id="@+id/et_location_fragment_create_order_second"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_layout_name"
         android:layout_width="match_parent"
-        android:layout_height="203dp"
-        android:text=""
-        android:textColor="@color/white" />
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/et_location_fragment_create_order_second"
+            android:layout_width="match_parent"
+            android:layout_height="203dp"
+            android:text=""
+            android:textColor="@color/white" />
+    </android.support.design.widget.TextInputLayout>
+
 
     <Button
         android:id="@+id/btn_next_fragment_create_order_second"
