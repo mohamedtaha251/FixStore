@@ -14,12 +14,14 @@ import android.widget.Toast;
 import nti.com.fixstore11.R;
 import nti.com.fixstore11.model.entities.Client;
 import nti.com.fixstore11.model.entities.HandyMan;
+import nti.com.fixstore11.view.Interfaces.LoginActivityView;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements LoginActivityView {
     EditText etPhone;
     EditText etPassword;
     Button btnLogin;
     TextView tvSigUp;
+    Boolean isClient;
 
 
     @Override
@@ -78,5 +80,30 @@ public class LoginActivity extends AppCompatActivity {
     private boolean isClientUser() {
         //check if user valid from fire base
         return true;
+    }
+
+    @Override
+    public void isValidUser(Boolean isValid) {
+        if (isValid==true) {
+            Toast.makeText(this, "login Successfully of Client", Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            finish();
+            intent.putExtra("isClient", isClient);
+            startActivity(intent);
+        } else if (isValid==false) {
+            Toast.makeText(this, "login  Successfully of handyman", Toast.LENGTH_SHORT).show();
+            finish();
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            intent.putExtra("isClient", false);
+            startActivity(intent);
+        }else
+        {
+
+            Toast.makeText(getApplicationContext(),"login failed",Toast.LENGTH_LONG).show();
+
+
+
+        }
     }
 }

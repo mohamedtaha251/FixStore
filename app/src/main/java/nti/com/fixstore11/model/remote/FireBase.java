@@ -23,6 +23,7 @@ import nti.com.fixstore11.model.entities.Client;
 import nti.com.fixstore11.model.entities.HandyMan;
 import nti.com.fixstore11.model.entities.Order;
 import nti.com.fixstore11.view.Interfaces.HandymanFragementView;
+import nti.com.fixstore11.view.Interfaces.LoginActivityView;
 
 public final class FireBase {
 
@@ -34,9 +35,8 @@ public final class FireBase {
     private FirebaseUser firebaseUser;
     private ArrayList<Order> orders;
     private ArrayList<String> ordersString;
-
-    private ArrayList<String> OrderKeys;
     private HandymanFragementView handymanFragementView;
+    private ArrayList<String> OrderKeys;
 
 
     public FireBase() {
@@ -171,6 +171,64 @@ public final class FireBase {
 
         return true;
     }
+
+    public void checkLoginClient(final LoginActivityView view, final Client client) {
+
+        ClientReferene.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ArrayList<Client> clients = new ArrayList<>();
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    String phone = dataSnapshot.child(ds.getKey()).child("phone").getValue(String.class);
+                    String password = dataSnapshot.child(ds.getKey()).child("password").getValue(String.class);
+
+                    String phoneuser = client.getPhone();
+                    String passworduser = client.getPassword();
+
+                    if (phoneuser.equals(phone) && passworduser.equals(password)) {
+                        view.isValidUser(true);
+                        break;
+                    }
+                }
+
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+    }
+
+
+    public void checkLoginHandyman(final LoginActivityView view, final Client client) {
+
+        HandymanReferene.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ArrayList<Client> clients = new ArrayList<>();
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    String phone = dataSnapshot.child(ds.getKey()).child("phone").getValue(String.class);
+                    String password = dataSnapshot.child(ds.getKey()).child("password").getValue(String.class);
+
+                    String phoneuser = client.getPhone();
+                    String passworduser = client.getPassword();
+
+                    if (phoneuser.equals(phone) && passworduser.equals(password)) {
+                        view.isValidUser(false);
+                        break;
+                    }
+                }
+
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+    }
+
 
     public boolean notifyWithOrderAction(Context context) {
         return true;

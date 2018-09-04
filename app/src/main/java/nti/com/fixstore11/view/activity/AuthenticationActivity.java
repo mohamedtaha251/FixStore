@@ -118,10 +118,6 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
 
 
 
-              //      bundle.putString("phone", phone);
-// set MyFragment Arguments
-             //       SignUpClientFragement myObj = new SignUpClientFragement();
-             //       myObj.setArguments(bundle);
 
 
                 }
@@ -139,13 +135,7 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
 
                     startActivity(intent);
                     clientCheck.setChecked(false);
-//
-//
-//                    bundle.putString("phone", phone);
-//// set MyFragment Arguments
-//                    SignUpHandymanFragement myObj2 = new SignUpHandymanFragement();
-//                    myObj2.setArguments(bundle);
-//
+
 
                 }
             }
