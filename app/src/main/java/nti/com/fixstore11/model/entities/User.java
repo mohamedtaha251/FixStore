@@ -13,6 +13,6 @@ public class User implements Serializable {
         id="0";
         name="default";
         password="default";
-        phone="0000000000";
+        phone="00000000000";
     }
 }
