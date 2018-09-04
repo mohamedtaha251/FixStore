@@ -2,12 +2,14 @@ package nti.com.fixstore11.model.remote;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;       
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -64,7 +66,7 @@ public final class FireBase {
     }
 
 
-    public boolean addOrder(Order order,String job) {
+    public boolean addOrder(Order order, String job) {
         String key = OrderReferene.push().getKey();
         DatabaseReference orderRecord = OrderReferene.child(job).child(key);
         orderRecord.child("id").setValue(key);
@@ -95,7 +97,8 @@ public final class FireBase {
         OrderReferene.child(handyMan.getJobName()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                ArrayList<Order> orders=new ArrayList<>();
+                ArrayList<Order> orders = new ArrayList<>();
+
 
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
@@ -109,8 +112,6 @@ public final class FireBase {
 
                 handymanFragementView.updateOrders(orders);
 
-
-
             }
 
             @Override
@@ -120,11 +121,6 @@ public final class FireBase {
         });
 
     }
-
-
-
-
-
 
     public boolean addHandyMan(HandyMan handyMan) {
         String key = HandymanReferene.push().getKey();
@@ -138,7 +134,41 @@ public final class FireBase {
         return true;
     }
 
-    public boolean notifyWithNewOrder(Context context) {
+    public boolean notifyWithNewOrder(final HandymanFragementView View, final HandyMan handyMan) {
+        OrderReferene.child(handyMan.getJobName()).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Order order = new Order();
+                String cn = dataSnapshot.child("ClientName").getValue(String.class);
+                order.getClient().setName(cn);
+                View.notifyWithNewOrder(order);
+
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Order order = new Order();
+                String cn = dataSnapshot.child("ClientName").getValue(String.class);
+                order.getClient().setName(cn);
+                View.notifyWithNewOrder(order);
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         return true;
     }
 

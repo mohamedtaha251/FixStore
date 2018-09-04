@@ -17,4 +17,5 @@ import nti.com.fixstore11.view.Interfaces.HandymanFragementView;
 public interface HandyManMainPresenter {
 
     void updateOrders(HandymanFragementView handymanFragementView, HandyMan handyMan);
+    void notifyWithNewOrder(HandymanFragementView handymanFragementView, HandyMan handyMan);
 }

@@ -16,6 +16,7 @@ import nti.com.fixstore11.R;
 import nti.com.fixstore11.model.entities.HandyMan;
 import nti.com.fixstore11.model.entities.Order;
 import nti.com.fixstore11.presenter.presenterImpl.HandyManMainPresenterImp;
+import nti.com.fixstore11.utils.NotificationUtils;
 import nti.com.fixstore11.view.Interfaces.HandymanFragementView;
 import nti.com.fixstore11.view.activity.OrderDetailActivity;
 import nti.com.fixstore11.view.adapter.OrderAdapter;
@@ -26,6 +27,7 @@ public class HandymanFragement extends Fragment implements HandymanFragementView
     HandyManMainPresenterImp presenter;
     ArrayList<Order> orders;
     OrderAdapter orderAdapter;
+    HandyMan handyMan;
 
     public HandymanFragement() {
     }
@@ -40,11 +42,17 @@ public class HandymanFragement extends Fragment implements HandymanFragementView
         mListView = (ListView) rootView.findViewById(R.id.list_view_order);
         pullToRefresh = (SwipeRefreshLayout) rootView.findViewById(R.id.pullToRefresh);
 
+        //initate order and presenter
         orders = new ArrayList<>();
         presenter = new HandyManMainPresenterImp();
-        HandyMan handyMan = (HandyMan) getActivity().getIntent().getSerializableExtra("User");
-        presenter.updateOrders(this, handyMan);
 
+        //get Current handy man from intent comming from previous activity
+        handyMan = (HandyMan) getActivity().getIntent().getSerializableExtra("User");
+
+        //refresh data for first time
+        refreshData();
+
+        //set adapter
         orderAdapter = new OrderAdapter(getActivity(), orders, R.layout.list_item_order);
         mListView.setAdapter(orderAdapter);
 
@@ -77,6 +85,10 @@ public class HandymanFragement extends Fragment implements HandymanFragementView
 
 
     private void refreshData() {
+        presenter.updateOrders(this, handyMan);
+
+        //notify with any new order
+        presenter.notifyWithNewOrder(this, handyMan);
 
     }
 
@@ -89,5 +101,13 @@ public class HandymanFragement extends Fragment implements HandymanFragementView
         //set adapter
         orderAdapter = new OrderAdapter(getActivity(), this.orders, R.layout.list_item_order);
         mListView.setAdapter(orderAdapter);
+
+    }
+
+    @Override
+    public void notifyWithNewOrder(Order order) {
+
+        //push notifications
+        NotificationUtils.pushOrderNotification(getActivity(), order);
     }
 }

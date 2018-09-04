@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import nti.com.fixstore11.R;
 import nti.com.fixstore11.model.entities.Client;
+import nti.com.fixstore11.model.entities.HandyMan;
 
 public class LoginActivity extends AppCompatActivity {
     EditText etPhone;

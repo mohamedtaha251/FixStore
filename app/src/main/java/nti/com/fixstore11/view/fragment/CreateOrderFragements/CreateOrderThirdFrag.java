@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import nti.com.fixstore11.R;
+import nti.com.fixstore11.model.entities.Client;
 import nti.com.fixstore11.model.entities.Order;
 import nti.com.fixstore11.presenter.presenterImpl.CreateOrderPresenterImp;
 import nti.com.fixstore11.view.activity.CreateOrderActivity;
@@ -39,6 +40,8 @@ public class CreateOrderThirdFrag extends Fragment {
                 String job=getActivity().getIntent().getStringExtra("HandyManJob");
                 presenterImp.saveOrder(new Order(),job);
                 Intent intent = new Intent(getActivity(), MainActivity.class);
+                intent.putExtra("User", new Client());
+
                 startActivity(intent);
             }
         });

@@ -14,4 +14,11 @@ public class HandyManMainPresenterImp implements HandyManMainPresenter {
          fireBase.refreshOrders(handymanFragementView,handyMan);
 
     }
+
+    @Override
+    public void notifyWithNewOrder(HandymanFragementView handymanFragementView,HandyMan handyMan) {
+        FireBase fireBase = new FireBase();
+        fireBase.notifyWithNewOrder(handymanFragementView,handyMan);
+
+    }
 }

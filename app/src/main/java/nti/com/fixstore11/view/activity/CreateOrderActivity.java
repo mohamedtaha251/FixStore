@@ -20,6 +20,7 @@ import nti.com.fixstore11.view.fragment.CreateOrderFragements.CreateOrderSecondF
 import nti.com.fixstore11.view.fragment.CreateOrderFragements.CreateOrderThirdFrag;
 import nti.com.fixstore11.view.fragment.HandymanFragement;
 
+
 public class CreateOrderActivity extends AppCompatActivity {
 
     Fragment FirstFrag;
@@ -41,8 +42,6 @@ public class CreateOrderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_order);
 
         init();
-        actions();
-
 
 
         fragmentManager = getSupportFragmentManager();
@@ -61,38 +60,4 @@ public class CreateOrderActivity extends AppCompatActivity {
 
     }
 
-    private void actions() {
-        btnFirstFrag.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                fragmentManager = getSupportFragmentManager();
-                fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_container_create_order, FirstFrag);
-                fragmentTransaction.commit();
-            }
-        });
-
-        btnSecondFrag.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                fragmentManager = getSupportFragmentManager();
-                fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_container_create_order, SecondFrag);
-                fragmentTransaction.commit();
-            }
-        });
-
-        btnThirdFrag.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                fragmentManager = getSupportFragmentManager();
-                fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_container_create_order, ThirdFrag);
-                fragmentTransaction.commit();
-
-            }
-        });
-
-
-    }
 }

@@ -9,7 +9,7 @@ public class HandyMan extends User implements Serializable {
 
     public HandyMan() {
         super();
-        jobName="default";
+        jobName="PLUMBER";
         Age=0;
 
     }
