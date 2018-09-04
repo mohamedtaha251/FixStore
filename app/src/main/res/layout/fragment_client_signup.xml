@@ -6,65 +6,82 @@
     android:layout_height="match_parent"
     android:background="@drawable/backgroundd">
 
-    <!--<GridView xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--android:id="@+id/gridview"-->
-    <!--android:layout_width="fill_parent"-->
-    <!--android:layout_height="fill_parent"-->
-    <!--android:columnWidth="90dp"-->
-    <!--android:numColumns="auto_fit"-->
-    <!--android:verticalSpacing="10dp"-->
-    <!--android:horizontalSpacing="10dp"-->
-    <!--android:stretchMode="columnWidth"-->
-    <!--android:gravity="center"-->
-    <!--/>-->
 
-
-    <EditText
-        android:id="@+id/ed_hname"
-        android:layout_width="wrap_content"
-        android:layout_height="52dp"
-        android:layout_marginTop="90dp"
-        android:ems="10"
-        android:gravity="right"
-        android:hint="الاسم"
-        android:inputType="textPersonName"
-        android:textAlignment="center"
-        android:textColor="@color/colorAccent"
-        android:textColorHighlight="@color/colorPrimary"
-        android:textColorHint="@color/common_google_signin_btn_text_dark_default"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/ed_hpassword"
-        android:layout_width="wrap_content"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_layout_cname"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:ems="10"
-        android:gravity="right"
-        android:hint="كلمة المرور"
-        android:inputType="textPassword"
-        android:textAlignment="center"
-        android:textColor="@color/colorAccent"
-        android:textColorHighlight="@color/colorPrimary"
-        android:textColorHint="@color/common_google_signin_btn_text_dark_default"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="@+id/ed_hname"
-        app:layout_constraintStart_toStartOf="@+id/ed_hname"
-        app:layout_constraintTop_toBottomOf="@+id/ed_hname" />
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="47dp"
+        android:gravity="fill_horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/input_layout_hpass1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView6"
+        app:layout_constraintVertical_bias="0.0">
+
+        <EditText
+            android:id="@+id/ed_cpass"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="90dp"
+            android:backgroundTint="@color/white"
+            android:ems="10"
+            android:gravity="right"
+            android:hint="الاسم"
+            android:inputType="textPersonName"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textColorHighlight="@color/colorPrimary"
+            android:textColorHint="@color/common_google_signin_btn_text_dark_default"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.505"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_layout_hpass1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_client_submit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/input_layout_cname">
+
+        <EditText
+            android:id="@+id/ed_hpassword"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="50dp"
+            android:backgroundTint="@color/white"
+            android:ems="10"
+            android:gravity="right"
+            android:hint="كلمة المرور"
+
+            android:inputType="textPassword"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textColorHighlight="@color/colorPrimary"
+            android:textColorHint="@color/common_google_signin_btn_text_dark_default"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="@+id/ed_hname"
+            app:layout_constraintStart_toStartOf="@+id/ed_hname"
+            app:layout_constraintTop_toBottomOf="@+id/ed_hname" />
+    </android.support.design.widget.TextInputLayout>
 
     <Button
         android:id="@+id/btn_client_submit"
         android:layout_width="0dp"
-        android:layout_height="46dp"
-        android:layout_marginEnd="80dp"
-        android:layout_marginLeft="80dp"
-        android:layout_marginRight="80dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/login_style"
         android:text="تسجيل "
         android:textAlignment="center"
@@ -72,6 +89,20 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ed_hpassword" />
+        app:layout_constraintTop_toBottomOf="@+id/input_layout_hpass1" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="178dp"
+        android:layout_height="149dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo" />
 
 </android.support.constraint.ConstraintLayout>

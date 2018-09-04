@@ -16,6 +16,7 @@ import nti.com.fixstore11.R;
 import nti.com.fixstore11.model.entities.Order;
 import nti.com.fixstore11.presenter.presenterImpl.HandyManMainPresenterImp;
 import nti.com.fixstore11.view.Interfaces.HandymanFragementView;
+import nti.com.fixstore11.view.activity.OrderDetailActivity;
 import nti.com.fixstore11.view.adapter.OrderAdapter;
 
 public class HandymanFragement extends Fragment implements HandymanFragementView {

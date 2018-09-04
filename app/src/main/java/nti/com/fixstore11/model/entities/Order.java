@@ -12,6 +12,7 @@ public class Order implements Serializable{
     public Order() {
         this.id = "0";
         Description = "fix electric";
+        client=new Client();
         client.setName("Mohamed taha");
         ClientRate = "5";
         Fromdays = "6";

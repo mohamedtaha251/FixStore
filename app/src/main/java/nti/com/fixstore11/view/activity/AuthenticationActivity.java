@@ -43,7 +43,7 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
     Boolean ClientSelection;
 
     EditText mPhoneNumberField, mVerificationField;
-    Button mStartButton, mVerifyButton, mResendButton;
+    Button mStartButton, mVerifyButton;
     Bundle bundle = new Bundle();
     private FirebaseAuth mAuth;
     private PhoneAuthProvider.ForceResendingToken mResendToken;
@@ -74,20 +74,20 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
         HandmanCheck = findViewById(R.id.HandmanCheck);
         nextBTN = findViewById(R.id.nextBTN);
         selection.setVisibility(View.INVISIBLE);
-        //    nextBTN.setVisibility(View.INVISIBLE);
+        nextBTN.setVisibility(View.INVISIBLE);
         mPhoneNumberField = (EditText) findViewById(R.id.field_phone_number);
         mVerificationField = (EditText) findViewById(R.id.field_verification_code);
 
         mStartButton = (Button) findViewById(R.id.button_start_verification);
         mVerifyButton = (Button) findViewById(R.id.button_verify_phone);
-        mResendButton = (Button) findViewById(R.id.button_resend);
+//        mResendButton = (Button) findViewById(R.id.button_resend);
 
         mStartButton.setOnClickListener(this);
         mVerifyButton.setOnClickListener(this);
-        mResendButton.setOnClickListener(this);
+//        mResendButton.setOnClickListener(this);
 
         mVerifyButton.setVisibility(View.INVISIBLE);
-        mResendButton.setVisibility(View.INVISIBLE);
+//        mResendButton.setVisibility(View.INVISIBLE);
         nextBTN.setVisibility(View.INVISIBLE);
 
         mAuth = FirebaseAuth.getInstance();
@@ -157,7 +157,8 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
                 Log.d(TAG, "onVerificationCompleted:" + credential);
                 signInWithPhoneAuthCredential(credential);
 
-                Toast.makeText(getBaseContext(), "completed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "تــــم", Toast.LENGTH_SHORT).show();
+                nextBTN.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -171,8 +172,7 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
             }
 
             @Override
-            public void onCodeSent(String verificationId,
-                                   PhoneAuthProvider.ForceResendingToken token) {
+            public void onCodeSent(String verificationId,PhoneAuthProvider.ForceResendingToken token) {
                 Log.d(TAG, "onCodeSent:" + verificationId);
                 Toast.makeText(getBaseContext(), "سوف تصلك رساله الكود التعريفى الان", Toast.LENGTH_SHORT).show();
                 mVerificationId = verificationId;
@@ -189,7 +189,6 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
                         if (task.isSuccessful()) {
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = task.getResult().getUser();
-                            nextBTN.setVisibility(View.VISIBLE);
                         } else {
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
@@ -253,7 +252,7 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
                     return;
                 }
                 mVerifyButton.setVisibility(View.VISIBLE);
-                mResendButton.setVisibility(View.VISIBLE);
+//                mResendButton.setVisibility(View.VISIBLE);
                 mStartButton.setVisibility(View.INVISIBLE);
 //                nextBTN.setVisibility(View.VISIBLE);
                 startPhoneNumberVerification("+2" + mPhoneNumberField.getText().toString());
@@ -266,11 +265,11 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
                 }
 
                 verifyPhoneNumberWithCode(mVerificationId, code);
-                nextBTN.setVisibility(View.VISIBLE);
+//                nextBTN.setVisibility(View.VISIBLE);
                 break;
-            case R.id.button_resend:
-                resendVerificationCode(mPhoneNumberField.getText().toString(), mResendToken);
-                break;
+//            case R.id.button_resend:
+//                resendVerificationCode(mPhoneNumberField.getText().toString(), mResendToken);
+//                break;
         }
 
     }

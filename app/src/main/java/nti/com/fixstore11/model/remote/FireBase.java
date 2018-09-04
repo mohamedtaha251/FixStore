@@ -69,7 +69,7 @@ public final class FireBase {
         DatabaseReference orderRecord = OrderReferene.child(job).child(key);
         orderRecord.child("id").setValue(key);
         orderRecord.child("Description").setValue(order.getDescription());
-        orderRecord.child("ClientName").setValue(order.getClientName());
+        orderRecord.child("ClientName").setValue(order.getClient().getName());
         orderRecord.child("ClientRate").setValue(order.getClientRate());
         orderRecord.child("Fromdays").setValue(order.getFromdays());
 
@@ -102,7 +102,7 @@ public final class FireBase {
                     Order order = new Order();
 
                     String cn = dataSnapshot.child(ds.getKey()).child("ClientName").getValue(String.class);
-                    order.setClientName(cn);
+                    order.getClient().setName(cn);
                     orders.add(order);
 
                 }

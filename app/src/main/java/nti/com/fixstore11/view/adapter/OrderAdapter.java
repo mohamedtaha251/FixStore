@@ -72,7 +72,7 @@ public class OrderAdapter extends CursorAdapter {
         OrderImageView = (ImageView) convertView.findViewById(R.id.list_item_icon);
 
         Order order = ordersList.get(position);
-        ClientNameTextView.setText(order.getClientName());
+        ClientNameTextView.setText(order.getClient().getName());
         OrderDescTextView.setText(order.getDescription());
         ClientRateTextView.setText(order.getClientRate() + " rate");
         OrderFromDayTextView.setText(order.getFromdays() + " day");

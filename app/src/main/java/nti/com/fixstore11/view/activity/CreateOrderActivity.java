@@ -56,9 +56,7 @@ public class CreateOrderActivity extends AppCompatActivity {
         FirstFrag = new CreateOrderFirstFrag();
         SecondFrag = new CreateOrderSecondFrag();
         ThirdFrag = new CreateOrderThirdFrag();
-        btnFirstFrag = findViewById(R.id.btn_first_frag);
-        btnSecondFrag = findViewById(R.id.btn_second_frag);
-        btnThirdFrag = findViewById(R.id.btn_third_frag);
+
 
 
     }
