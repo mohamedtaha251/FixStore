@@ -4,13 +4,11 @@ import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -18,7 +16,6 @@ import nti.com.fixstore11.R;
 import nti.com.fixstore11.model.entities.Order;
 import nti.com.fixstore11.presenter.presenterImpl.HandyManMainPresenterImp;
 import nti.com.fixstore11.view.Interfaces.HandymanFragementView;
-import nti.com.fixstore11.view.activity.OrderDetailActivity;
 import nti.com.fixstore11.view.adapter.OrderAdapter;
 
 public class HandymanFragement extends Fragment implements HandymanFragementView {
