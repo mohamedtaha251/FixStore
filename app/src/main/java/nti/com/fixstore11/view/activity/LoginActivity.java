@@ -12,13 +12,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import nti.com.fixstore11.R;
+import nti.com.fixstore11.model.entities.Client;
 
 public class LoginActivity extends AppCompatActivity {
     EditText etPhone;
     EditText etPassword;
     Button btnLogin;
     TextView tvSigUp;
-    Boolean isClient;
 
 
     @Override
@@ -51,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (isValidUser()) {
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    intent.putExtra("isClient", isClient);
+                    intent.putExtra("User", new Client());
                     startActivity(intent);
                 } else {
                     Toast.makeText(LoginActivity.this, "inValidUser", Toast.LENGTH_SHORT).show();

@@ -88,11 +88,11 @@ public final class FireBase {
 
     }
 
-    public void updateOrders(HandymanFragementView View) {
+    public void refreshOrders(HandymanFragementView View, final HandyMan handyMan) {
 
         this.handymanFragementView = View;
 
-        OrderReferene.addValueEventListener(new ValueEventListener() {
+        OrderReferene.child(handyMan.getJobName()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ArrayList<Order> orders=new ArrayList<>();

@@ -13,6 +13,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import nti.com.fixstore11.R;
+import nti.com.fixstore11.model.entities.HandyMan;
 import nti.com.fixstore11.model.entities.Order;
 import nti.com.fixstore11.presenter.presenterImpl.HandyManMainPresenterImp;
 import nti.com.fixstore11.view.Interfaces.HandymanFragementView;
@@ -41,7 +42,8 @@ public class HandymanFragement extends Fragment implements HandymanFragementView
 
         orders = new ArrayList<>();
         presenter = new HandyManMainPresenterImp();
-        presenter.updateOrders(this);
+        HandyMan handyMan = (HandyMan) getActivity().getIntent().getSerializableExtra("User");
+        presenter.updateOrders(this, handyMan);
 
         orderAdapter = new OrderAdapter(getActivity(), orders, R.layout.list_item_order);
         mListView.setAdapter(orderAdapter);

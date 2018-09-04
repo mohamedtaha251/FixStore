@@ -8,13 +8,20 @@
     <string name="resend_phone_auth">Resend</string>
 
 
-    <string-array name="positions">
-        <item>سباك</item>
-        <item>نقاش</item>
-        <item>كهربائى</item>
-        <item>نجار </item>
-        <item>مبلط </item>
+    <string name="CARPENTER">نجار</string>
+    <string name="PAINTER">نقاش</string>
+    <string name="PLUMBER">سباك</string>
+    <string name="SATTILITE">فني دش</string>
+
+
+    <string-array name="jobsNames">
+        <item>@string/CARPENTER</item>
+        <item>@string/PAINTER</item>
+        <item>@string/PLUMBER</item>
+        <item>@string/SATTILITE</item>
     </string-array>
+
+
     <string name="title_activity_profile">Handyman profile</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"

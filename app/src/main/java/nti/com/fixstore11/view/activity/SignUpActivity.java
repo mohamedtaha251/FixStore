@@ -21,7 +21,7 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-        isClient = getIntent().getBooleanExtra("SignUpSelection", true);
+        isClient = getIntent().getBooleanExtra("SignUpSelection", false);
 
         signUpClientFragement = new SignUpClientFragement();
         signUpHandymanFragement = new SignUpHandymanFragement();

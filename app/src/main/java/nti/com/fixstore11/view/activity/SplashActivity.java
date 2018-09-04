@@ -12,6 +12,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import nti.com.fixstore11.R;
+import nti.com.fixstore11.model.entities.Client;
+import nti.com.fixstore11.model.entities.HandyMan;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -53,7 +55,8 @@ public class SplashActivity extends AppCompatActivity {
 
                 if (isLogged()) {
                     Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                    intent.putExtra("isClient", isUserClient());
+
+                    intent.putExtra("User", new Client());
                     startActivity(intent);
                 } else {
                     startActivity(new Intent(SplashActivity.this, LoginActivity.class));

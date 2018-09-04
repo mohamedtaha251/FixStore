@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 
 import java.util.ArrayList;
 
+import nti.com.fixstore11.model.entities.HandyMan;
 import nti.com.fixstore11.model.entities.Order;
 import nti.com.fixstore11.view.Interfaces.HandymanFragementView;
 
@@ -15,5 +16,5 @@ import nti.com.fixstore11.view.Interfaces.HandymanFragementView;
 
 public interface HandyManMainPresenter {
 
-    void updateOrders(HandymanFragementView handymanFragementView);
+    void updateOrders(HandymanFragementView handymanFragementView, HandyMan handyMan);
 }
