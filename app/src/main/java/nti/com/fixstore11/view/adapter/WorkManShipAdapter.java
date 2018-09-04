@@ -5,21 +5,12 @@ package nti.com.fixstore11.view.adapter;
  */
 
 import android.content.Context;
-import android.database.Cursor;
-import android.util.SparseBooleanArray;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.CursorAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.TextView;
 
-import java.util.ArrayList;
-
-import nti.com.fixstore11.R;
-import nti.com.fixstore11.model.entities.Order;
 import nti.com.fixstore11.utils.HandyManUtils;
 
 public class WorkManShipAdapter extends BaseAdapter {
