@@ -11,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import nti.com.fixstore11.utils.HandyManUtils;
 
 public class WorkManShipAdapter extends BaseAdapter {
@@ -35,13 +36,14 @@ public class WorkManShipAdapter extends BaseAdapter {
 
     // create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
-        ImageView imageView;
+       ImageView imageView;
 
         if (convertView == null) {
             imageView = new ImageView(mContext);
             imageView.setLayoutParams(new GridView.LayoutParams(250, 250));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            imageView.setPadding(2, 2, 2, 2);
+            imageView.setPadding(10, 10, 10, 10);
+//            imageView.setM(2, 2, 2, 2);
         } else {
             imageView = (ImageView) convertView;
         }

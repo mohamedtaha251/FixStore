@@ -19,7 +19,16 @@ public  class HandyManUtils {
             R.drawable.carpenter_icon,
             R.drawable.painter_icon,
             R.drawable.plumber_icon,
-            R.drawable.sattilite_icon
+            R.drawable.carpenter_icon,
+            R.drawable.painter_icon,
+            R.drawable.plumber_icon,
+            R.drawable.plumber_icon,
+            R.drawable.carpenter_icon,
+            R.drawable.painter_icon,
+            R.drawable.plumber_icon,
+            R.drawable.carpenter_icon,
+            R.drawable.painter_icon,
+            R.drawable.plumber_icon
 
     };
 }

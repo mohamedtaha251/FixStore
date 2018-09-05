@@ -7,5 +7,7 @@
     <color name="grey_300">#E0E0E0</color>
     <color name="white">#ffffff</color>
     <color name="gray">#FFDBD6D6</color>
+    <color name="back">#a4a47d</color>
+    <color name="backspinner">#68627c</color>
 
 </resources>

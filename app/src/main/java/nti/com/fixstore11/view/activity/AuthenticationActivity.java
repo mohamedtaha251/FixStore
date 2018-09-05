@@ -14,10 +14,12 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskExecutors;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.AuthResult;
@@ -41,7 +43,7 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
     String phone;
     CheckBox clientCheck, HandmanCheck;
     Boolean ClientSelection;
-
+    ProgressBar progressBar;
     EditText mPhoneNumberField, mVerificationField;
     Button mStartButton, mVerifyButton;
     Bundle bundle = new Bundle();
@@ -51,6 +53,7 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
     String mVerificationId;
 
     private static final String TAG = "PhoneAuthActivity";
+    private String verificationId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,11 +80,11 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
         nextBTN.setVisibility(View.INVISIBLE);
         mPhoneNumberField = (EditText) findViewById(R.id.field_phone_number);
         mVerificationField = (EditText) findViewById(R.id.field_verification_code);
-
+        progressBar = findViewById(R.id.progressBar1);
         mStartButton = (Button) findViewById(R.id.button_start_verification);
         mVerifyButton = (Button) findViewById(R.id.button_verify_phone);
 //        mResendButton = (Button) findViewById(R.id.button_resend);
-
+        progressBar.setVisibility(View.INVISIBLE);
         mStartButton.setOnClickListener(this);
         mVerifyButton.setOnClickListener(this);
 //        mResendButton.setOnClickListener(this);
@@ -112,12 +115,9 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
                     ClientSelection = false;
                     Intent intent = new Intent(AuthenticationActivity.this, SignUpActivity.class);
                     intent.putExtra("SignUpSelection", ClientSelection);
-                   intent.putExtra("phone", phone);
+                    intent.putExtra("phone", phone);
                     startActivity(intent);
                     HandmanCheck.setChecked(false);
-
-
-
 
 
                 }
@@ -162,7 +162,7 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
             }
 
             @Override
-            public void onCodeSent(String verificationId,PhoneAuthProvider.ForceResendingToken token) {
+            public void onCodeSent(String verificationId, PhoneAuthProvider.ForceResendingToken token) {
                 Log.d(TAG, "onCodeSent:" + verificationId);
                 Toast.makeText(getBaseContext(), "سوف تصلك رساله الكود التعريفى الان", Toast.LENGTH_SHORT).show();
                 mVerificationId = verificationId;
@@ -190,39 +190,39 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
     }
 
 
-    private void startPhoneNumberVerification(String phoneNumber) {
-        PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                phoneNumber,        // Phone number to verify
-                60,                 // Timeout duration
-                TimeUnit.SECONDS,   // Unit of timeout
-                this,               // Activity (for callback binding)
-                mCallbacks);        // OnVerificationStateChangedCallbacks
-    }
-
-    private void verifyPhoneNumberWithCode(String verificationId, String code) {
-        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
-        signInWithPhoneAuthCredential(credential);
-    }
-
-    private void resendVerificationCode(String phoneNumber,
-                                        PhoneAuthProvider.ForceResendingToken token) {
-        PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                phoneNumber,        // Phone number to verify
-                60,                 // Timeout duration
-                TimeUnit.SECONDS,   // Unit of timeout
-                this,               // Activity (for callback binding)
-                mCallbacks,         // OnVerificationStateChangedCallbacks
-                token);             // ForceResendingToken from callbacks
-    }
-
-    private boolean validatePhoneNumber() {
-        phone = "+2" + mPhoneNumberField.getText().toString();
-        if (TextUtils.isEmpty(phone)) {
-            mPhoneNumberField.setError("رقم الهاتف غير صحيح");
-            return false;
-        }
-        return true;
-    }
+//    private void startPhoneNumberVerification(String phoneNumber) {
+//        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+//                phoneNumber,        // Phone number to verify
+//                60,                 // Timeout duration
+//                TimeUnit.SECONDS,   // Unit of timeout
+//                this,               // Activity (for callback binding)
+//                mCallbacks);        // OnVerificationStateChangedCallbacks
+//    }
+//
+//    private void verifyPhoneNumberWithCode(String verificationId, String code) {
+//        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
+//        signInWithPhoneAuthCredential(credential);
+//    }
+//
+//    private void resendVerificationCode(String phoneNumber,
+//                                        PhoneAuthProvider.ForceResendingToken token) {
+//        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+//                phoneNumber,        // Phone number to verify
+//                60,                 // Timeout duration
+//                TimeUnit.SECONDS,   // Unit of timeout
+//                this,               // Activity (for callback binding)
+//                mCallbacks,         // OnVerificationStateChangedCallbacks
+//                token);             // ForceResendingToken from callbacks
+//    }
+//
+//    private boolean validatePhoneNumber() {
+//        phone = "+2" + mPhoneNumberField.getText().toString();
+//        if (TextUtils.isEmpty(phone)) {
+//            mPhoneNumberField.setError("رقم الهاتف غير صحيح");
+//            return false;
+//        }
+//        return true;
+//    }
 
     @Override
     public void onStart() {
@@ -234,28 +234,121 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
         }
     }
 
+    private void verifyCode(String code) {
+        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
+        signInWithCredential(credential);
+    }
+
+    private void signInWithCredential(PhoneAuthCredential credential) {
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+
+//                            Intent intent = new Intent(VerifyPhoneActivity.this, Selection.class);
+//                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//
+//                            String phoneNumber=phonenumber;
+//                            intent.putExtra("phonenumber", phoneNumber);
+//
+//                            startActivity(intent);
+                            nextBTN.setVisibility(View.VISIBLE);
+
+                        } else {
+                            Toast.makeText(getBaseContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+    }
+
+    private void sendVerificationCode(String number) {
+//        progressBar.setVisibility(View.VISIBLE);
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                number,
+                60,
+                TimeUnit.SECONDS,
+                TaskExecutors.MAIN_THREAD,
+                mCallBack
+        );
+
+    }
+
+    private PhoneAuthProvider.OnVerificationStateChangedCallbacks
+            mCallBack = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+
+        @Override
+        public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+            super.onCodeSent(s, forceResendingToken);
+            verificationId = s;
+        }
+
+        @Override
+        public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
+            String code = phoneAuthCredential.getSmsCode();
+            if (code != null) {
+                mVerificationField.setText(code);
+                verifyCode(code);
+            }
+        }
+
+        @Override
+        public void onVerificationFailed(FirebaseException e) {
+            Toast.makeText(getBaseContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+           Log.e("error verfy 0",e.getMessage());
+
+        }
+    };
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_start_verification:
-                if (!validatePhoneNumber()) {
+//                if (!validatePhoneNumber()) {
+//                    return;
+//                }
+//                mVerifyButton.setVisibility(View.VISIBLE);
+////                mResendButton.setVisibility(View.VISIBLE);
+//                mStartButton.setVisibility(View.INVISIBLE);
+////                nextBTN.setVisibility(View.VISIBLE);
+//                startPhoneNumberVerification("+2" + mPhoneNumberField.getText().toString());
+
+                String number = "+2" + mPhoneNumberField.getText().toString().trim();
+                if (number.isEmpty() || number.length() < 13) {
+                    mPhoneNumberField.setError("ادخل رقم هاتف صحيح");
+                    mPhoneNumberField.requestFocus();
+
+
                     return;
                 }
+//                Toast.makeText(getBaseContext(), "start Done "+number, Toast.LENGTH_LONG).show();
+
+                sendVerificationCode(number);
+
                 mVerifyButton.setVisibility(View.VISIBLE);
-//                mResendButton.setVisibility(View.VISIBLE);
+////                mResendButton.setVisibility(View.VISIBLE);
                 mStartButton.setVisibility(View.INVISIBLE);
-//                nextBTN.setVisibility(View.VISIBLE);
-                startPhoneNumberVerification("+2" + mPhoneNumberField.getText().toString());
+
                 break;
             case R.id.button_verify_phone:
-                String code = mVerificationField.getText().toString();
-                if (TextUtils.isEmpty(code)) {
-                    mVerificationField.setError("يجب كتابة الكود التعريفى");
+//                String code = mVerificationField.getText().toString();
+//                if (TextUtils.isEmpty(code)) {
+//                    mVerificationField.setError("يجب كتابة الكود التعريفى");
+//                    return;
+//                }
+//
+//                verifyPhoneNumberWithCode(mVerificationId, code);
+//                nextBTN.setVisibility(View.VISIBLE);
+
+                String code = mVerificationField.getText().toString().trim();
+
+                if (code.isEmpty() || code.length() < 6) {
+
+                    mVerificationField.setError("ادخل الكود التاكيدى...");
+                    mVerificationField.requestFocus();
                     return;
                 }
-
-                verifyPhoneNumberWithCode(mVerificationId, code);
-//                nextBTN.setVisibility(View.VISIBLE);
+                verifyCode(code);
                 break;
 //            case R.id.button_resend:
 //                resendVerificationCode(mPhoneNumberField.getText().toString(), mResendToken);

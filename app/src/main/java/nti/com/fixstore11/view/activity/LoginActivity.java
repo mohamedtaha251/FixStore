@@ -33,11 +33,8 @@ public class LoginActivity extends AppCompatActivity implements LoginActivityVie
 
         setContentView(R.layout.activity_login);
 
-
         init();
         actions();
-
-
 
     }
 
