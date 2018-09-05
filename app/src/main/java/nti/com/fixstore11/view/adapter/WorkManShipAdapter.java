@@ -42,7 +42,7 @@ public class WorkManShipAdapter extends BaseAdapter {
             imageView = new ImageView(mContext);
             imageView.setLayoutParams(new GridView.LayoutParams(250, 250));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            imageView.setPadding(10, 10, 10, 10);
+        //    imageView.setPadding(10, 10, 10, 10);
 //            imageView.setM(2, 2, 2, 2);
         } else {
             imageView = (ImageView) convertView;

@@ -18,17 +18,8 @@ public  class HandyManUtils {
     public static Integer[] mThumbIds = {
             R.drawable.carpenter_icon,
             R.drawable.painter_icon,
-            R.drawable.plumber_icon,
-            R.drawable.carpenter_icon,
-            R.drawable.painter_icon,
-            R.drawable.plumber_icon,
-            R.drawable.plumber_icon,
-            R.drawable.carpenter_icon,
-            R.drawable.painter_icon,
-            R.drawable.plumber_icon,
-            R.drawable.carpenter_icon,
-            R.drawable.painter_icon,
             R.drawable.plumber_icon
+
 
     };
 }
