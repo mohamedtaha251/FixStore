@@ -37,9 +37,8 @@ public class CreateOrderFirstFrag extends Fragment {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              //  String desc = etDesc.getText().toString();
-              //  Order order = ((CreateOrderActivity) getActivity()).order;
-              //  order.setDescription(desc);
+                String desc = etDesc.getText().toString();
+                ((CreateOrderActivity) getActivity()).order.setDescription(desc);
 
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

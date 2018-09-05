@@ -6,24 +6,54 @@ public class Order implements Serializable{
     String id;
     String Description;
     Client client;
-    String ClientRate;
+    String ClientPrice;
     String Fromdays;
+    String Latitude;
+    String Longitude;
+    String State;
 
     public Order() {
         this.id = "0";
         Description = "fix electric";
         client=new Client();
         client.setName("Mohamed taha");
-        ClientRate = "5";
+        ClientPrice = "5";
         Fromdays = "6";
+        Latitude="-34";
+        Longitude="-34";
+        State="pending";
     }
 
     public Order(String id, String description, Client clientName, String clientRate, String fromdays) {
         this.id = id;
         Description = description;
         client = clientName;
-        ClientRate = clientRate;
+        ClientPrice = clientRate;
         Fromdays = fromdays;
+    }
+
+    public String getState() {
+        return State;
+    }
+
+    public void setState(String state) {
+        State = state;
+    }
+
+    public String getLatitude() {
+        return Latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        Latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return Longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        Longitude = longitude;
     }
 
     public String getId() {
@@ -46,12 +76,12 @@ public class Order implements Serializable{
         client = clientName;
     }
 
-    public String getClientRate() {
-        return ClientRate;
+    public String getClientPrice() {
+        return ClientPrice;
     }
 
-    public void setClientRate(String clientRate) {
-        ClientRate = clientRate;
+    public void setClientPrice(String clientPrice) {
+        ClientPrice = clientPrice;
     }
 
     public String getFromdays() {

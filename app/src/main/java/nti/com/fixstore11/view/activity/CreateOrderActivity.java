@@ -6,10 +6,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import nti.com.fixstore11.R;
 import nti.com.fixstore11.model.entities.Order;
@@ -52,12 +54,20 @@ public class CreateOrderActivity extends AppCompatActivity {
     }
 
     private void init() {
+        order = new Order();
         FirstFrag = new CreateOrderFirstFrag();
         SecondFrag = new CreateOrderSecondFrag();
         ThirdFrag = new CreateOrderThirdFrag();
 
 
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
     }
+
 
 }

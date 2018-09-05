@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import nti.com.fixstore11.R;
 import nti.com.fixstore11.model.entities.Client;
@@ -38,14 +39,21 @@ public class CreateOrderThirdFrag extends Fragment {
             @Override
             public void onClick(View view) {
                 String job=getActivity().getIntent().getStringExtra("HandyManJob");
-                presenterImp.saveOrder(new Order(),job);
+                String price=etPrice.getText().toString();
+
+                ((CreateOrderActivity)getActivity()).order.setClientPrice(price);
+
+                presenterImp.saveOrder(((CreateOrderActivity)getActivity()).order,job);
+
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 intent.putExtra("User", new Client());
 
                 startActivity(intent);
             }
+
         });
 
+        Toast.makeText(getActivity(), ((CreateOrderActivity)getActivity()).order.getDescription(), Toast.LENGTH_SHORT).show();
         return rootView;
     }
 

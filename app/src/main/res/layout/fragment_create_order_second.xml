@@ -22,12 +22,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/et_location_fragment_create_order_second"
+        <Button
+            android:id="@+id/btn_get_location"
             android:layout_width="match_parent"
-            android:layout_height="203dp"
-            android:text=""
-            android:textColor="@color/white" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/login_style"
+            android:text="تحديد الموقع"
+            android:textColor="@color/colorAccent"
+            android:textSize="20sp" />
     </android.support.design.widget.TextInputLayout>
 
 

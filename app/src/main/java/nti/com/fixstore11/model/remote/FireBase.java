@@ -3,9 +3,7 @@ package nti.com.fixstore11.model.remote;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -17,7 +15,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import nti.com.fixstore11.model.entities.Client;
 import nti.com.fixstore11.model.entities.HandyMan;
@@ -67,13 +64,19 @@ public final class FireBase {
 
 
     public boolean addOrder(Order order, String job) {
+
+        Log.d("taha",order.getDescription());
+
         String key = OrderReferene.push().getKey();
         DatabaseReference orderRecord = OrderReferene.child(job).child(key);
         orderRecord.child("id").setValue(key);
         orderRecord.child("Description").setValue(order.getDescription());
         orderRecord.child("ClientName").setValue(order.getClient().getName());
-        orderRecord.child("ClientRate").setValue(order.getClientRate());
+        orderRecord.child("ClientPrice").setValue(order.getClientPrice());
         orderRecord.child("Fromdays").setValue(order.getFromdays());
+        orderRecord.child("Latitude").setValue(order.getLatitude());
+        orderRecord.child("Longitude").setValue(order.getLongitude());
+        orderRecord.child("State").setValue(order.getState());
 
         return true;
     }
