@@ -1,7 +1,12 @@
 package nti.com.fixstore11.presenter.presenter;
 
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 import nti.com.fixstore11.model.entities.Client;
+import nti.com.fixstore11.model.entities.HandyMan;
+import nti.com.fixstore11.model.entities.User;
 import nti.com.fixstore11.view.Interfaces.LoginActivityView;
 
 /**
@@ -10,4 +15,10 @@ import nti.com.fixstore11.view.Interfaces.LoginActivityView;
 
 public interface LoginActivityPresenter {
     void checkValidUser(LoginActivityView view, Client client);
+     void isUserFound(LoginActivityView view,String phone, String password);
+
+     //fire base call this function
+     void receiveClients(ArrayList<Client> clients);
+     void receiveHandyMans(ArrayList<HandyMan> handyMans);
+     void checkValidation();
 }

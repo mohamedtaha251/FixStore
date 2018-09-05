@@ -20,6 +20,19 @@ public class HandyMan extends User implements Serializable {
         Age = age;
     }
 
+    public HandyMan(String phone, String password) {
+        this();
+        this.phone = phone;
+        this.password = password;
+    }
+
+    public HandyMan(String phone, String password, String jobName) {
+        this();
+        this.phone = phone;
+        this.password = password;
+      //  this.jobName = jobName;
+    }
+
     public String getJobName() {
         return jobName;
     }

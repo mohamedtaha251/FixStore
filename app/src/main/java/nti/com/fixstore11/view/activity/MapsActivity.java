@@ -1,10 +1,16 @@
 package nti.com.fixstore11.view.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationManager;
+import android.os.Build;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -23,7 +29,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     Button btnDone;
-    public LatLng SelectedlatLng;
+    String Latitude="";
+    String Longitude="";
 
 
     @Override
@@ -36,13 +43,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        }
+
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        Criteria criteria = new Criteria();
+
+        String provider = locationManager.getBestProvider(criteria, true);
+
+
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 Intent returnIntent = new Intent();
-                returnIntent.putExtra("Latitude",String.valueOf(SelectedlatLng.latitude) );
-                returnIntent.putExtra("Longitude", String.valueOf(SelectedlatLng.longitude));
+                returnIntent.putExtra("Latitude", Latitude);
+                returnIntent.putExtra("Longitude", Longitude);
                 setResult(Activity.RESULT_OK, returnIntent);
                 finish();
 
@@ -69,7 +86,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-        this.SelectedlatLng = sydney;
+
+
+
+
+        Latitude = String.valueOf(sydney.latitude);
+        Latitude = String.valueOf(sydney.longitude);
 
     }
 

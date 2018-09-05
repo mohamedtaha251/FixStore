@@ -10,6 +10,12 @@ public class Client extends User implements Serializable {
 
     }
 
+    public Client(String phone, String password) {
+        super();
+        this.phone = phone;
+        this.password = password;
+    }
+
     public String getName() {
         return name;
     }

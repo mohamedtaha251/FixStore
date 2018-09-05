@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import nti.com.fixstore11.model.entities.Client;
 import nti.com.fixstore11.model.entities.HandyMan;
 import nti.com.fixstore11.model.entities.Order;
+import nti.com.fixstore11.presenter.presenter.LoginActivityPresenter;
 import nti.com.fixstore11.view.Interfaces.HandymanFragementView;
 import nti.com.fixstore11.view.Interfaces.LoginActivityView;
 
@@ -105,10 +106,22 @@ public final class FireBase {
 
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
-                    Order order = new Order();
 
-                    String cn = dataSnapshot.child(ds.getKey()).child("ClientName").getValue(String.class);
-                    order.getClient().setName(cn);
+                    String ClientName = dataSnapshot.child(ds.getKey()).child("ClientName").getValue(String.class);
+                    String ClientPrice = dataSnapshot.child(ds.getKey()).child("ClientPrice").getValue(String.class);
+                    String Fromdays = dataSnapshot.child(ds.getKey()).child("Fromdays").getValue(String.class);
+                    String Latitude = dataSnapshot.child(ds.getKey()).child("Latitude").getValue(String.class);
+                    String Longitude = dataSnapshot.child(ds.getKey()).child("Longitude").getValue(String.class);
+                    String State = dataSnapshot.child(ds.getKey()).child("State").getValue(String.class);
+
+                    Order order = new Order();
+                    order.getClient().setName(ClientName);
+                    order.setClientPrice(ClientPrice);
+                    order.setFromdays(Fromdays);
+                    order.setLatitude(Latitude);
+                    order.setLongitude(Longitude);
+                    order.setState(State);
+
                     orders.add(order);
 
                 }
@@ -132,6 +145,7 @@ public final class FireBase {
         userRecord.child("age").setValue(handyMan.getAge());
         userRecord.child("password").setValue(handyMan.getPassword());
         userRecord.child("phone").setValue(handyMan.getPhone());
+        userRecord.child("jobName").setValue(handyMan.getJobName());
 
 
         return true;
@@ -238,4 +252,55 @@ public final class FireBase {
     }
 
 
+    public void callClients(final LoginActivityPresenter presenter) {
+        ClientReferene.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ArrayList<Client> clients = new ArrayList<>();
+
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    String phone = dataSnapshot.child(ds.getKey()).child("phone").getValue(String.class);
+                    String password = dataSnapshot.child(ds.getKey()).child("password").getValue(String.class);
+                    Client client = new Client(phone,password);
+                    clients.add(client);
+                }
+
+                presenter.receiveClients(clients);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    public void callHandMan(final LoginActivityPresenter presenter) {
+
+        HandymanReferene.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ArrayList<HandyMan> HandyMans = new ArrayList<>();
+
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    String phone = dataSnapshot.child(ds.getKey()).child("phone").getValue(String.class);
+                    String password = dataSnapshot.child(ds.getKey()).child("password").getValue(String.class);
+                    String jobName = dataSnapshot.child(ds.getKey()).child("jobName").getValue(String.class);
+                    HandyMan handyMan = new HandyMan(phone,password,jobName);
+                    HandyMans.add(handyMan);
+                }
+
+                presenter.receiveHandyMans(HandyMans);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
 }

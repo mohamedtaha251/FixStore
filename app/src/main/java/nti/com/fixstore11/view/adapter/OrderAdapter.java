@@ -74,7 +74,7 @@ public class OrderAdapter extends CursorAdapter {
         Order order = ordersList.get(position);
         ClientNameTextView.setText(order.getClient().getName());
         OrderDescTextView.setText(order.getDescription());
-        ClientRateTextView.setText(order.getClientPrice() + " rate");
+        ClientRateTextView.setText(order.getClientPrice() + " $");
         OrderFromDayTextView.setText(order.getFromdays() + " day");
         return convertView;
     }

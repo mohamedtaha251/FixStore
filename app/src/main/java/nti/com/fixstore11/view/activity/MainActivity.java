@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
         //get object from previuos activity
         User user = (User) getIntent().getSerializableExtra("User");
+
         //use polymorphism to get the type of user
         if (user instanceof Client) {
             mainFragment = new ClientFragement();
