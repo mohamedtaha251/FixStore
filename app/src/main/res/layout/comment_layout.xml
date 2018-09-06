@@ -15,7 +15,9 @@
         android:id="@+id/comm_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:enabled="false" />
+        android:enabled="false"
+        android:textColor="@color/cast_expanded_controller_text_color"
+        android:textColorHint="@android:color/white" />
 
     <TextView
         android:id="@+id/textView3"
