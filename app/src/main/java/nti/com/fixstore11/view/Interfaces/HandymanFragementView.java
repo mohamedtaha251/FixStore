@@ -10,7 +10,7 @@ import nti.com.fixstore11.model.entities.Order;
  */
 
 public interface HandymanFragementView {
-    void updateOrders(ArrayList<Order> orders);
+    void updateOrdersFromFireBase(ArrayList<Order> orders);
     void notifyWithNewOrder(Order order);
 
 }

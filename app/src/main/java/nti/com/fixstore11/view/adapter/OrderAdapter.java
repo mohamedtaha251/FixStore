@@ -56,10 +56,11 @@ public class OrderAdapter extends CursorAdapter {
         return ordersList.get(position);
     }
 
-    @Override
-    public long getItemId(int position) {
-        return Long.parseLong(ordersList.get(position).getId());
-    }
+//
+//    @Override
+//    public long getItemId(int position) {
+//        return Long.parseLong(ordersList.get(position).getId());
+//    }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -75,7 +76,7 @@ public class OrderAdapter extends CursorAdapter {
         ClientNameTextView.setText(order.getClient().getName());
         OrderDescTextView.setText(order.getDescription());
         ClientRateTextView.setText(order.getClientPrice() + " $");
-        OrderFromDayTextView.setText(order.getFromdays() + " day");
+        OrderFromDayTextView.setText(order.getFromdays() + " ");
         return convertView;
     }
 

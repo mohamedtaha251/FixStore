@@ -57,8 +57,8 @@ public class SplashActivity extends AppCompatActivity {
                 }
 
                 //get user from shared prefrenece
-                User user = LoginUtils.loadPreferences(SplashActivity.this);
-                //User user = new User();
+                //User user = LoginUtils.loadPreferences(SplashActivity.this);
+                User user = new User();
 
                 if (user instanceof HandyMan || user instanceof Client) {
                     Intent intent = new Intent(SplashActivity.this, MainActivity.class);

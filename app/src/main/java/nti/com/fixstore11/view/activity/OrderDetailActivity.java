@@ -14,15 +14,17 @@ import android.widget.Toast;
 
 import nti.com.fixstore11.R;
 import nti.com.fixstore11.model.entities.Order;
+import nti.com.fixstore11.presenter.presenter.OrderDetailPresenter;
+import nti.com.fixstore11.presenter.presenterImpl.OrderDetailPresenterImp;
+import nti.com.fixstore11.view.Interfaces.OrderDetailActivityView;
 import nti.com.fixstore11.view.fragment.ClientFragement;
 import nti.com.fixstore11.view.fragment.HandymanFragement;
 
-public class OrderDetailActivity extends AppCompatActivity {
+public class OrderDetailActivity extends AppCompatActivity implements OrderDetailActivityView {
     Order order;
-
-
     TextView descriptionTV, locationTV;
     Button acceptBTN, rejectBTN, callBTN;
+    OrderDetailPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +33,8 @@ public class OrderDetailActivity extends AppCompatActivity {
 
 
         order = (Order) getIntent().getSerializableExtra("Order");
-//        init();
- //       actions();
+        init();
+        actions();
 
     }
 
@@ -50,12 +52,33 @@ public class OrderDetailActivity extends AppCompatActivity {
         callBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent dial = new Intent(Intent.ACTION_DIAL);
-                dial.setData(Uri.parse(order.getClient().getPhone()));
-                if ((dial.resolveActivity(getPackageManager())) != null)
-                    startActivity(dial);
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:"+order.getClient().getPhone()));
+
+                if ((intent.resolveActivity(getPackageManager())) != null)
+                    startActivity(intent);
                 else
                     Toast.makeText(getBaseContext(), "حدث خطا يرجى المحاولة مرة اخرى  ", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        acceptBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                presenter = new OrderDetailPresenterImp();
+                presenter.acceptOrder(order);
+                presenter.pushAcceptOrderNotification(OrderDetailActivity.this, order);
+                finish();
+            }
+        });
+
+        rejectBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                presenter = new OrderDetailPresenterImp();
+                presenter.rejectOrder(order);
+                presenter.pushRejectOrderNotification(OrderDetailActivity.this, order);
+                finish();
             }
         });
     }

@@ -27,7 +27,6 @@ public class HandymanFragement extends Fragment implements HandymanFragementView
     HandyManMainPresenterImp presenter;
     ArrayList<Order> orders;
     OrderAdapter orderAdapter;
-    HandyMan handyMan;
 
     public HandymanFragement() {
     }
@@ -38,25 +37,15 @@ public class HandymanFragement extends Fragment implements HandymanFragementView
 
         View rootView = inflater.inflate(R.layout.fragment_handyman, container, false);
 
+        init(rootView);
+        subscribeOrders();
+        actions();
 
-        mListView = (ListView) rootView.findViewById(R.id.list_view_order);
-        pullToRefresh = (SwipeRefreshLayout) rootView.findViewById(R.id.pullToRefresh);
 
-        //initate order and presenter
-        orders = new ArrayList<>();
-        presenter = new HandyManMainPresenterImp();
+        return rootView;
+    }
 
-        //get Current handy man from intent comming from previous activity
-        handyMan = (HandyMan) getActivity().getIntent().getSerializableExtra("User");
-
-        //refresh data for first time
-        refreshData();
-
-        //set adapter
-        orderAdapter = new OrderAdapter(getActivity(), orders, R.layout.list_item_order);
-        mListView.setAdapter(orderAdapter);
-
-        //on click on of item to open Order Detail activity
+    private void actions() {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -74,26 +63,26 @@ public class HandymanFragement extends Fragment implements HandymanFragementView
         pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                refreshData();
                 pullToRefresh.setRefreshing(false);
             }
         });
-
-
-        return rootView;
     }
 
-
-    private void refreshData() {
-        presenter.updateOrders(this, handyMan);
-
-        //notify with any new order
-        presenter.notifyWithNewOrder(this, handyMan);
-
+    private void subscribeOrders() {
+        HandyMan handyMan = (HandyMan) getActivity().getIntent().getSerializableExtra("User");
+        presenter.updateOrders(HandymanFragement.this, handyMan);
     }
+
+    private void init(View rootView) {
+        mListView = (ListView) rootView.findViewById(R.id.list_view_order);
+        pullToRefresh = (SwipeRefreshLayout) rootView.findViewById(R.id.pullToRefresh);
+        orders = new ArrayList<>();
+        presenter = new HandyManMainPresenterImp();
+    }
+
 
     @Override
-    public void updateOrders(ArrayList<Order> orders) {
+    public void updateOrdersFromFireBase(ArrayList<Order> orders) {
         this.orders = orders;
 
         //set adapter
@@ -104,8 +93,8 @@ public class HandymanFragement extends Fragment implements HandymanFragementView
 
     @Override
     public void notifyWithNewOrder(Order order) {
-
-        //push notifications
-        NotificationUtils.pushOrderNotification(getActivity(), order);
+NotificationUtils.pushOrderNotification(getActivity(),order);
     }
+
+
 }

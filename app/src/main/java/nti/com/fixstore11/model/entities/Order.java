@@ -1,9 +1,13 @@
 package nti.com.fixstore11.model.entities;
 
 import java.io.Serializable;
+import java.util.Calendar;
+
+import nti.com.fixstore11.utils.HandyManUtils;
 
 public class Order implements Serializable{
     String id;
+    String OrderType;
     String Description;
     Client client;
     String ClientPrice;
@@ -14,11 +18,12 @@ public class Order implements Serializable{
 
     public Order() {
         this.id = "0";
+        this.OrderType = HandyManUtils.jobs[0];
         Description = "fix electric";
         client=new Client();
         client.setName("Mohamed taha");
         ClientPrice = "5";
-        Fromdays = "6";
+        Fromdays = Calendar.getInstance().getTime().toString();
         Latitude="-34";
         Longitude="-34";
         State="pending";
@@ -30,6 +35,14 @@ public class Order implements Serializable{
         client = clientName;
         ClientPrice = clientRate;
         Fromdays = fromdays;
+    }
+
+    public String getOrderType() {
+        return OrderType;
+    }
+
+    public void setOrderType(String orderType) {
+        OrderType = orderType;
     }
 
     public String getState() {
