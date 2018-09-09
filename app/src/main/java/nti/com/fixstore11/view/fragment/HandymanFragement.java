@@ -93,7 +93,7 @@ public class HandymanFragement extends Fragment implements HandymanFragementView
 
     @Override
     public void notifyWithNewOrder(Order order) {
-NotificationUtils.pushOrderNotification(getActivity(),order);
+        NotificationUtils.pushOrderNotification(getActivity(), order);
     }
 
 

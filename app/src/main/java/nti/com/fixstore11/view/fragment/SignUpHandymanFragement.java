@@ -89,6 +89,7 @@ public class SignUpHandymanFragement extends Fragment {
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 intent.putExtra("User", newHandyMan);
                 startActivity(intent);
+                getActivity().finish();
 
 
             }

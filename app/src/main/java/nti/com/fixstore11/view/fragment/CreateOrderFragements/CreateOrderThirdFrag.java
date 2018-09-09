@@ -47,13 +47,13 @@ public class CreateOrderThirdFrag extends Fragment {
 
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 intent.putExtra("User", new Client());
-
                 startActivity(intent);
+
+                getActivity().finish();
             }
 
         });
 
-        Toast.makeText(getActivity(), ((CreateOrderActivity)getActivity()).order.getDescription(), Toast.LENGTH_SHORT).show();
         return rootView;
     }
 

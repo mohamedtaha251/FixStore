@@ -73,6 +73,7 @@ public class SignUpClientFragement extends Fragment {
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 intent.putExtra("User", newClient);
                 startActivity(intent);
+                getActivity().finish();
 
             }
         });

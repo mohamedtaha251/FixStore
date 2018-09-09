@@ -86,6 +86,7 @@ public class LoginActivity extends AppCompatActivity implements LoginActivityVie
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         intent.putExtra("User", user);
         startActivity(intent);
+        finish();
 
         //save user data in shared preference
         LoginUtils.savePreferences(this,user);
