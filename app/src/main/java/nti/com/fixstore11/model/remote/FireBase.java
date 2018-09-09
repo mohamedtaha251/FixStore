@@ -54,7 +54,10 @@ public final class FireBase {
         return reference.push().getKey();
     }
 
-    public boolean isLogged(String mobile, String password) {
+    public boolean isLogged() {
+        if (auth.getCurrentUser() == null) {
+            return false;
+        }
 
         return true;
     }

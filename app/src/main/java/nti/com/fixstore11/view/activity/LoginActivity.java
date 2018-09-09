@@ -12,11 +12,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import nti.com.fixstore11.R;
-import nti.com.fixstore11.model.entities.Client;
-import nti.com.fixstore11.model.entities.HandyMan;
 import nti.com.fixstore11.model.entities.User;
 import nti.com.fixstore11.presenter.presenter.LoginActivityPresenter;
 import nti.com.fixstore11.presenter.presenterImpl.loginActivityPresenterImp;
+import nti.com.fixstore11.utils.LoginUtils;
 import nti.com.fixstore11.view.Interfaces.LoginActivityView;
 
 public class LoginActivity extends AppCompatActivity implements LoginActivityView {
@@ -87,6 +86,10 @@ public class LoginActivity extends AppCompatActivity implements LoginActivityVie
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         intent.putExtra("User", user);
         startActivity(intent);
+
+        //save user data in shared preference
+        LoginUtils.savePreferences(this,user);
+
     }
 
     @Override

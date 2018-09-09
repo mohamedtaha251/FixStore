@@ -14,6 +14,13 @@ public class HandyMan extends User implements Serializable {
 
     }
 
+    public HandyMan(User user) {
+        super(user);
+        jobName="PLUMBER";
+        Age=0;
+
+    }
+
     public HandyMan(String name, String phone, int age) {
         this.name = name;
         this.phone = phone;

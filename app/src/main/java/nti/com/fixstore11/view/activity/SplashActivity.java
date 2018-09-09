@@ -14,6 +14,9 @@ import android.widget.TextView;
 import nti.com.fixstore11.R;
 import nti.com.fixstore11.model.entities.Client;
 import nti.com.fixstore11.model.entities.HandyMan;
+import nti.com.fixstore11.model.entities.User;
+import nti.com.fixstore11.model.remote.FireBase;
+import nti.com.fixstore11.utils.LoginUtils;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -53,13 +56,18 @@ public class SplashActivity extends AppCompatActivity {
                     });
                 }
 
-                if (isLogged()) {
-                    Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                //get user from shared prefrenece
+                User user = LoginUtils.loadPreferences(SplashActivity.this);
+                //User user = new User();
 
-                    intent.putExtra("User", new Client());
+                if (user instanceof HandyMan || user instanceof Client) {
+                    Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                    intent.putExtra("User", user);
                     startActivity(intent);
+
                 } else {
                     startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+
                 }
 
                 finish();
@@ -70,13 +78,4 @@ public class SplashActivity extends AppCompatActivity {
 
     }
 
-    private boolean isUserClient() {
-        //check if user client from fire base
-        return true;
-    }
-
-    private boolean isLogged() {
-        //check if user logged from fire base
-        return false;
-    }
 }
