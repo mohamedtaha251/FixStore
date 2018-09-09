@@ -31,8 +31,8 @@ public class OrderDetailActivity extends AppCompatActivity {
 
 
         order = (Order) getIntent().getSerializableExtra("Order");
-        init();
-        actions();
+//        init();
+ //       actions();
 
     }
 

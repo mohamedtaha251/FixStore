@@ -95,8 +95,6 @@ public class HandymanFragement extends Fragment implements HandymanFragementView
     @Override
     public void updateOrders(ArrayList<Order> orders) {
         this.orders = orders;
-        ArrayList<Order> temp = new ArrayList<>();
-        temp.add(new Order());
 
         //set adapter
         orderAdapter = new OrderAdapter(getActivity(), this.orders, R.layout.list_item_order);

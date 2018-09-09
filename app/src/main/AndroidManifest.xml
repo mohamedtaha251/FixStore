@@ -39,6 +39,7 @@
         <activity android:name=".view.activity.AuthenticationActivity" />
         <activity android:name=".view.activity.SignUpActivity" />
         <activity android:name=".view.activity.CreateOrderActivity" />
+        <activity android:name=".view.activity.OrderDetailActivity" />
         <activity
             android:name=".view.activity.ProfileActivity"
             android:label="@string/title_activity_profile"
